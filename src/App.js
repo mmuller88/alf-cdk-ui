@@ -10,7 +10,20 @@ import 'swagger-ui-react/swagger-ui.css';
 Amplify.configure(aws_exports);
 
 // export default App = () => <SwaggerUI url="https://api-explorer.h-o.dev/swagger.json" />
+
+
 class App extends Component {
+
+  componentDidMount() {
+    fetch('/api/swaggerdefinition/'+this.props.match.params.id, {headers: { 'Authorization': 'JWT ' + window.sessionStorage.getItem('jwt') }}).then(r => r.json().then(data => {
+      this.setState({swaggerSpecs: {...data}});
+    }));
+  }
+
+  render() {
+    return <SwaggerUI specs={this.state.swaggerSpecs} />
+  }
+
   // constructor(props) {
   //   super(props);
   // }
