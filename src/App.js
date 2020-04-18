@@ -1,35 +1,38 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import SwaggerUI from 'swagger-ui';
+// import SwaggerUI from 'swagger-ui';
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
+import SwaggerUI from 'swagger-ui-react';
+import 'swagger-ui-react/swagger-ui.css';
 Amplify.configure(aws_exports);
 
+// export default App = () => <SwaggerUI url="https://api-explorer.h-o.dev/swagger.json" />
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      definitionLink: "https://api-explorer.h-o.dev/swagger.json",
-    }
-    // componentDidMount();
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
-  componentDidMount() {
-    SwaggerUI({
-      domNode: document.getElementById("api-data"),
-      url: this.state.definitionLink
-    })
-  }
+  // componentDidMount() {
+  //   SwaggerUI({
+  //     domNode: document.getElementById("api-data"),
+  //     url: "https://api-explorer.h-o.dev/swagger.json"
+  //   })
+  // }
 
-  render() {
-    return (
-      <div className="App">
-        <div id="api-data" />
-      </div>
-    );
-  }
+  // render() {
+  //   return (
+  //     SwaggerUI({
+        // domNode: document.getElementById("api-data"),
+      //   url: "https://api-explorer.h-o.dev/swagger.json"
+      // })
+      // <div className="App">
+      //   <div id="api-data" />
+      // </div>
+//     );
+//   }
 }
 
-export default withAuthenticator(App, true);
+export default withAuthenticator(App = () => <SwaggerUI url="https://api-explorer.h-o.dev/swagger.json" />, true);

@@ -9,7 +9,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "swagger-ui": "^3.25.0"
+    "swagger-ui-react": "^3.25.0"
   },
   "resolutions": {
     "set-value": "^2.0.1",
