@@ -6,6 +6,9 @@ This auth starter implements withAuthenticator HOC to provide a basic authentica
 
 ![Amplify Auth](src/images/auth.gif)
 
+## Cognito
+Your username is martin and temporary password is MO9@dmK5.iKd2
+
 ## Deploy with the AWS Amplify Console
 
 The AWS Amplify Console provides hosting for fullstack serverless web apps. [Learn more](https://console.amplify.aws). Deploy this app to your AWS account with a single click:
