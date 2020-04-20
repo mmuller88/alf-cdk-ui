@@ -3,13 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/bootstrap": "^4.3.2",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.0",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "@types/swagger-ui-react": "^3.23.1",
+    "@types/typescript": "^2.0.0",
     "aws-amplify": "^2.2.0",
     "aws-amplify-react": "^3.1.1",
     "bootstrap": "^4.4.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "swagger-ui-react": "^3.25.0"
+    "swagger-ui-react": "^3.25.0",
+    "typescript": "^3.8.3"
   },
   "resolutions": {
     "set-value": "^2.0.1",
