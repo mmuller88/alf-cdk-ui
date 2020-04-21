@@ -34,6 +34,12 @@ class App extends Component{
             } else {
               request.headers.Authorization = `${jwt}`;
               request.headers['Access-Control-Allow-Origin'] = '*'
+              request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
+              request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+              // if (request.method === "OPTIONS"){
+              //   w.WriteHeader(http.StatusOK)
+              //   return
+              // }
               // request.parameters.alfUserId = `${userName}`;
               console.log(`Body: ${request.body}`)
               return request;
