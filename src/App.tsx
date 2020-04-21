@@ -5,7 +5,7 @@ import './App.css';
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth }from 'aws-amplify';
 import aws_exports from './aws-exports';
-import { CognitoUser } from 'amazon-cognito-identity-js';
+// import { CognitoUser } from 'amazon-cognito-identity-js';
 import SwaggerUI from 'swagger-ui-react';
 // import ReactDOM from 'react-dom';
 import 'swagger-ui-react/swagger-ui.css';
@@ -34,7 +34,7 @@ class App extends Component{
             } else {
               request.headers.Authorization = `${jwt}`;
               request.headers['Access-Control-Allow-Origin'] = '*'
-              request.parameters.alfUserId = `${userName}`;
+              // request.parameters.alfUserId = `${userName}`;
               console.log(`Body: ${request.body}`)
               return request;
             }
