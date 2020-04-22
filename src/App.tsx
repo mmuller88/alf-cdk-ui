@@ -22,29 +22,30 @@ class App extends Component{
       <div>
         <SwaggerUI
           url="https://api-explorer.h-o.dev/swagger.json"
-          // requestInterceptor= { function(request) {
+          requestInterceptor= { function(request) {
 
-          //   console.log(`UserName: ${userName}`)
-          //   // console.log(`UserName: ${userName}`)
-          //   // Allow developers to set a bearertoken since
-          //   // const bearerToken = sessionStorage.getItem('bearerToken');
-          //   if (!jwt) {
-          //     alert(`From the console, please run: \nsessionStorage.setItem('accessToken', 'insert a real access token id here')`);
-          //     return request;
-          //   } else {
-          //     request.headers.Authorization = `${jwt}`;
-          //     request.headers['Access-Control-Allow-Origin'] = '*'
-          //     request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
-          //     request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-          //     // if (request.method === "OPTIONS"){
-          //     //   w.WriteHeader(http.StatusOK)
-          //     //   return
-          //     // }
-          //     // request.parameters.alfUserId = `${userName}`;
-          //     console.log(`Body: ${request.body}`)
-          //     return request;
-          //   }
-          // } }
+            console.log(`UserName: ${userName}`)
+            // console.log(`UserName: ${userName}`)
+            // Allow developers to set a bearertoken since
+            // const bearerToken = sessionStorage.getItem('bearerToken');
+            if (!jwt) {
+              alert(`From the console, please run: \nsessionStorage.setItem('accessToken', 'insert a real access token id here')`);
+              return request;
+            } else {
+              // url = proxyUrl + '/' + this.url
+              request.headers.Authorization = `${jwt}`;
+              request.headers['Access-Control-Allow-Origin'] = '*'
+              request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
+              request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+              // if (request.method === "OPTIONS"){
+              //   w.WriteHeader(http.StatusOK)
+              //   return
+              // }
+              // request.parameters.alfUserId = `${userName}`;
+              console.log(`Body: ${request.body}`)
+              return request;
+            }
+          } }
 
         />
       </div>
