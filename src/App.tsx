@@ -61,8 +61,6 @@ class App extends Component{
   constructor(props: any) {
     super(props);
 
-    this.use
-
     console.log("baue");
 
     Auth.currentAuthenticatedUser({
