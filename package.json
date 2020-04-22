@@ -33,7 +33,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://api-explorer.h-o.dev:80",
   "browserslist": [
     ">0.2%",
     "not dead",
