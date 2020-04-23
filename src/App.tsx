@@ -33,7 +33,7 @@ class App extends Component{
               return request;
             } else {
               // url = proxyUrl + '/' + this.url
-              request.headers.Authorization = `${jwt}`;
+              // request.headers.Authorization = `${jwt}`;
               // request.headers['Access-Control-Allow-Origin'] = '*'
               // request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
               // request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
@@ -46,12 +46,12 @@ class App extends Component{
               return request;
             }
           } }
-          responseInterceptor= { function(response) {
-              response.headers['Access-Control-Allow-Origin'] = '*'
-              response.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
-              response.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-              return response;
-          } }
+          // responseInterceptor= { function(response) {
+          //     response.headers['Access-Control-Allow-Origin'] = '*'
+          //     response.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
+          //     response.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+          //     return response;
+          // } }
 
         />
       </div>
