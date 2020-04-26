@@ -25,16 +25,16 @@ class App extends Component{
           // url="https://s3.eu-west-2.amazonaws.com/api-explorer.h-o.dev/swagger.json"
           requestInterceptor= { function(request) {
 
-            console.log(`UserName: ${userName}`)
+            // console.log(`UserName: ${userName}`)
             // console.log(`UserName: ${userName}`)
             // Allow developers to set a bearertoken since
             // const bearerToken = sessionStorage.getItem('bearerToken');
-            if (!jwt) {
-              alert(`From the console, please run: \nsessionStorage.setItem('accessToken', 'insert a real access token id here')`);
-              return request;
-            } else {
+            // if (!jwt) {
+            //   alert(`From the console, please run: \nsessionStorage.setItem('accessToken', 'insert a real access token id here')`);
+            //   return request;
+            // } else {
               // url = proxyUrl + '/' + this.url
-              // request.headers.Authorization = `${jwt}`;
+              request.headers.Authorization = `${jwt}`;
               // request.headers['Access-Control-Allow-Origin'] = '*'
               // request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
               // request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
@@ -43,9 +43,9 @@ class App extends Component{
               //   return
               // }
               // request.parameters.alfUserId = `${userName}`;
-              console.log(`Body: ${request.body}`)
+              // console.log(`Body: ${request.body}`)
               return request;
-            }
+            // }
           } }
           responseInterceptor= { function(response) {
               response.headers['Access-Control-Allow-Origin'] = '*'
@@ -71,7 +71,6 @@ class App extends Component{
       userName = authUser.username;
     } )
     .catch(err => console.log(err));
-
 
     Auth.currentSession().then(res=>{
       let accessToken = res.getAccessToken()
