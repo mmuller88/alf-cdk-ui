@@ -21,7 +21,7 @@ class App extends Component{
     return (
       <div>
         <SwaggerUI
-          url="api-explorer.h-o.dev.s3.eu-west-2.amazonaws.com/swagger.json"
+          url="http://api-explorer.h-o.dev.s3.eu-west-2.amazonaws.com/swagger.json"
           docExpansion="list"
           // url="https://s3.eu-west-2.amazonaws.com/api-explorer.h-o.dev/swagger.json"
           requestInterceptor= { function(request) {
