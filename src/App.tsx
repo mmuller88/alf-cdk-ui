@@ -20,9 +20,9 @@ class App extends Component{
   render(): any {
     return (
       <div>
-        {/* <SwaggerUI
+        <SwaggerUI
           // url="https://api-explorer.h-o.dev.s3.eu-west-2.amazonaws.com/swagger.json"
-          url="https://api-explorer.h-o.dev/swagger.json"
+          // url="https://api-explorer.h-o.dev/swagger.json"
           docExpansion="list"
           // url="https://s3.eu-west-2.amazonaws.com/api-explorer.h-o.dev/swagger.json"
           requestInterceptor= { function(request) {
@@ -56,7 +56,7 @@ class App extends Component{
               return response;
           } }
 
-        /> */}
+        />
       </div>
     )
   }
