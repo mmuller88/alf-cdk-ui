@@ -85,4 +85,7 @@ class App extends Component{
 
 }
 
-export default withAuthenticator(App, true);
+// export default App = () => <SwaggerUI url="https://petstore.swagger.io/v2/swagger.json" />
+
+// export default withAuthenticator(App, true);
+export default App;
