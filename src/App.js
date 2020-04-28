@@ -20,6 +20,18 @@ class App extends Component {
 
     console.log("baue");
 
+    Auth.configure({
+      auth0: {
+          // domain: 'your auth0 domain',
+          clientID: '4f11vr3ui4360mgcq8c6lj40ss',
+          redirectUri: 'https://api-explorer.h-o.dev',
+          // audience: 'https://your_domain/userinfo',
+          responseType: 'token id_token', // for now we only support implicit grant flow
+          scope: 'gw-api/all', // the scope used by your app
+          returnTo: 'https://h-o.dev'
+      }
+    });
+
     Auth.currentAuthenticatedUser({
         bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
     }).then(authUser =>{
@@ -35,6 +47,8 @@ class App extends Component {
       console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
       console.log(`myJwt: ${jwt}`)
     })
+
+
   }
 
   componentDidMount() {
