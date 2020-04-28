@@ -26,7 +26,7 @@ class App extends Component{
           url="https://api-explorer.h-o.dev/pet.json"
           // docExpansion="list"
           // url="https://s3.eu-west-2.amazonaws.com/api-explorer.h-o.dev/swagger.json"
-          requestInterceptor= { function(request) {
+          // requestInterceptor= { function(request) {
 
             // console.log(`UserName: ${userName}`)
             // console.log(`UserName: ${userName}`)
@@ -37,25 +37,25 @@ class App extends Component{
             //   return request;
             // } else {
               // url = proxyUrl + '/' + this.url
-              request.headers.Authorization = `${jwt}`;
-              request.headers['Access-Control-Allow-Origin'] = '*'
-              request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
-              request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+              // request.headers.Authorization = `${jwt}`;
+              // request.headers['Access-Control-Allow-Origin'] = '*'
+              // request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
+              // request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
               // if (request.method === "OPTIONS"){
               //   w.WriteHeader(http.StatusOK)
               //   return
               // }
               // request.parameters.alfUserId = `${userName}`;
               // console.log(`Body: ${request.body}`)
-              return request;
+              // return request;
             // }
-          } }
-          responseInterceptor= { function(response) {
-              response.headers['Access-Control-Allow-Origin'] = '*'
-              response.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
-              response.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-              return response;
-          } }
+          // } }
+          // responseInterceptor= { function(response) {
+          //     response.headers['Access-Control-Allow-Origin'] = '*'
+          //     response.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
+          //     response.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+          //     return response;
+          // } }
 
         />
       </div>
