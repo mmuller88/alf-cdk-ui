@@ -9,6 +9,7 @@
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "@types/swagger-ui-react": "^3.23.1",
+    "swagger-ui-react": "^3.23.1",
     "@types/typescript": "^2.0.0",
     "aws-amplify": "^2.2.0",
     "aws-amplify-react": "^3.1.1",
@@ -16,7 +17,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "swagger-ui-react": "^3.25.0",
     "typescript": "^3.8.3"
   },
   "resolutions": {
