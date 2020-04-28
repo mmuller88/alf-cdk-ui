@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css'
+// import './App.css'
 import SwaggerUI from 'swagger-ui';
 import "swagger-ui-react/swagger-ui.css"
 import { withAuthenticator } from 'aws-amplify-react'
