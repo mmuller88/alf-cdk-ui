@@ -20,6 +20,8 @@ class App extends Component {
 
     console.log("baue");
 
+    console.log("AuthConfigure: " + Auth._config);
+    console.log("Auth: " + Auth);
     Auth.configure({
       auth0: {
           // domain: 'your auth0 domain',
