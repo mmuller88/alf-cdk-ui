@@ -22,27 +22,27 @@ class App extends Component {
 
     console.log("AuthConfigure: " + Auth._config);
     console.log("Auth: " + Auth);
-    Auth.configure({
-      auth0: {
-          // domain: 'your auth0 domain',
-          clientID: '4f11vr3ui4360mgcq8c6lj40ss',
-          redirectUri: '/',
-          // audience: 'https://your_domain/userinfo',
-          responseType: 'token id_token', // for now we only support implicit grant flow
-          scope: 'gw-api/all', // the scope used by your app
-          returnTo: '/'
-      },
-      mandatorySignIn: false,
-      region: Config.AWS_REGION,
-      identityPoolRegion: Config.AWS_REGION,
-      identityPoolId: Config.AWS_COGNITO_ID_POOL,
-      userPoolId: Config.AWS_USER_POOL,
-      userPoolWebClientId: Config.AWS_USER_POOL_CLIENT,
-      refreshHandlers: {
-        [Config.AUTH0_DOMAIN]: refreshToken, // ****.auth0.com
-        developer: refreshToken,  // testing
-      },
-    });
+    // Auth.configure({
+    //   auth0: {
+    //       // domain: 'your auth0 domain',
+    //       clientID: '4f11vr3ui4360mgcq8c6lj40ss',
+    //       redirectUri: '/',
+    //       // audience: 'https://your_domain/userinfo',
+    //       responseType: 'token id_token', // for now we only support implicit grant flow
+    //       scope: 'gw-api/all', // the scope used by your app
+    //       returnTo: '/'
+    //   },
+    //   mandatorySignIn: false,
+    //   region: Config.AWS_REGION,
+    //   identityPoolRegion: Config.AWS_REGION,
+    //   identityPoolId: Config.AWS_COGNITO_ID_POOL,
+    //   userPoolId: Config.AWS_USER_POOL,
+    //   userPoolWebClientId: Config.AWS_USER_POOL_CLIENT,
+    //   refreshHandlers: {
+    //     [Config.AUTH0_DOMAIN]: refreshToken, // ****.auth0.com
+    //     developer: refreshToken,  // testing
+    //   },
+    // });
 
     Auth.currentAuthenticatedUser({
         bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
@@ -66,7 +66,29 @@ class App extends Component {
   componentDidMount() {
     SwaggerUI({
       domNode: document.getElementById("api-data"),
-      url: this.state.definitionLink
+      url: this.state.definitionLink,
+      requestInterceptor: { function(request) {
+        console.log(`UserName: ${userName}`)
+        // Allow developers to set a bearertoken since
+        // const bearerToken = sessionStorage.getItem('bearerToken');
+        if (!jwt) {
+          alert(`Couldn't find the jwt token`);
+          return request;
+        } else {
+          url = proxyUrl + '/' + this.url
+          request.headers.Authorization = `${jwt}`;
+          request.headers['Access-Control-Allow-Origin'] = '*'
+          request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
+          request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+          if (request.method === "OPTIONS"){
+            w.WriteHeader(http.StatusOK)
+            return
+          }
+          request.parameters.alfUserId = `${userName}`;
+          console.log(`Body: ${request.body}`)
+          return request;
+        }
+      } }
     })
   }
 
