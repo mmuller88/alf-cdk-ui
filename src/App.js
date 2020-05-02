@@ -67,28 +67,35 @@ class App extends Component {
     SwaggerUI({
       domNode: document.getElementById("api-data"),
       url: this.state.definitionLink,
-      requestInterceptor: { function(request) {
-        console.log(`UserName: ${userName}`)
-        // Allow developers to set a bearertoken since
-        // const bearerToken = sessionStorage.getItem('bearerToken');
-        if (!jwt) {
-          alert(`Couldn't find the jwt token`);
-          return request;
-        } else {
-          url = proxyUrl + '/' + this.url
-          request.headers.Authorization = `${jwt}`;
-          request.headers['Access-Control-Allow-Origin'] = '*'
-          request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
-          request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-          if (request.method === "OPTIONS"){
-            w.WriteHeader(http.StatusOK)
-            return
-          }
-          request.parameters.alfUserId = `${userName}`;
-          console.log(`Body: ${request.body}`)
-          return request;
-        }
-      } }
+      requestInterceptor: req => {
+        //return req;
+        const promise = new Promise((resolve, reject) => resolve(req));
+        promise.url = req.url
+        promise.headers.Authorization = `${jwt}`;
+        return promise
+      }
+      // requestInterceptor: { function(request) {
+      //   console.log(`UserName: ${userName}`)
+      //   // Allow developers to set a bearertoken since
+      //   // const bearerToken = sessionStorage.getItem('bearerToken');
+      //   if (!jwt) {
+      //     alert(`Couldn't find the jwt token`);
+      //     return request;
+      //   } else {
+      //     url = proxyUrl + '/' + this.url
+      //     request.headers.Authorization = `${jwt}`;
+      //     request.headers['Access-Control-Allow-Origin'] = '*'
+      //     request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
+      //     request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+      //     if (request.method === "OPTIONS"){
+      //       w.WriteHeader(http.StatusOK)
+      //       return
+      //     }
+      //     request.parameters.alfUserId = `${userName}`;
+      //     console.log(`Body: ${request.body}`)
+      //     return request;
+      //   }
+      // } }
     })
   }
 
