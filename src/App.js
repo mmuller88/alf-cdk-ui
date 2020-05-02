@@ -8,7 +8,7 @@ import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 
-var jwt;
+var jwt = 'no';
 var userName;
 
 class App extends Component {
