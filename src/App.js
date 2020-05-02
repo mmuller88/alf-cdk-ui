@@ -71,7 +71,7 @@ class App extends Component {
         //return req;
         const promise = new Promise((resolve, reject) => resolve(req));
         promise.url = req.url
-        // promise.headers.Authorization = 'abcde';//`${jwt}`;
+        promise.headers.Authorization = `${jwt}`;
         return promise
       }
       // requestInterceptor: { function(request) {
