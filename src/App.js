@@ -67,13 +67,19 @@ class App extends Component {
     SwaggerUI({
       domNode: document.getElementById("api-data"),
       url: this.state.definitionLink,
-      requestInterceptor: req => {
-        //return req;
-        const promise = new Promise((resolve, reject) => resolve(req));
-        promise.url = req.url
-        // promise.headers.Authorization = `${jwt}`;
-        return promise
-      }
+      requestInterceptor: function(request) {
+        // request interceptor
+          // add custom headers here
+          request.headers.Authorization = `${jwt}`;
+          return request;
+      },
+      // requestInterceptor: req => {
+      //   //return req;
+      //   const promise = new Promise((resolve, reject) => resolve(req));
+      //   promise.url = req.url
+      //   promise.headers.Authorization = `${jwt}`;
+      //   return promise
+      // }
       // requestInterceptor: { function(request) {
       //   console.log(`UserName: ${userName}`)
       //   // Allow developers to set a bearertoken since
