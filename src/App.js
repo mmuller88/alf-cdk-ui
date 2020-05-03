@@ -18,10 +18,10 @@ class App extends Component {
       definitionLink: "https://api-explorer.h-o.dev/swagger.json",
     }
 
-    console.log("baue");
+    // console.log("baue");
 
-    console.log("AuthConfigure: " + Auth._config);
-    console.log("Auth: " + Auth);
+    // console.log("AuthConfigure: " + Auth._config);
+    // console.log("Auth: " + Auth);
     // Auth.configure({
     //   auth0: {
     //       // domain: 'your auth0 domain',
@@ -47,7 +47,7 @@ class App extends Component {
     Auth.currentAuthenticatedUser({
         bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
     }).then(authUser =>{
-      console.log(authUser)
+      // console.log(authUser)
       userName = authUser.username;
     } )
     .catch(err => console.log(err));
@@ -56,8 +56,8 @@ class App extends Component {
       let accessToken = res.getAccessToken()
       jwt = accessToken.getJwtToken()
       //You can print them to see the full objects
-      console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
-      console.log(`myJwt: ${jwt}`)
+      // console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
+      // console.log(`myJwt: ${jwt}`)
     })
 
 
