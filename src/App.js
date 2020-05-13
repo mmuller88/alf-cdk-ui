@@ -15,7 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      definitionLink: "https://api-explorer.h-o.dev/swagger.json",
+      definitionLink: "https://api-explorer.alfpro.net/swagger.json",
     }
 
     // console.log("baue");
