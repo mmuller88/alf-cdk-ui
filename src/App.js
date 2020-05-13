@@ -73,6 +73,12 @@ class App extends Component {
           request.headers.Authorization = `${jwt}`;
           return request;
       },
+      responseInterceptor: function(response) {
+        // request interceptor
+          // add custom headers here
+          request.headers['Access-Control-Allow-Origin'] = '*'
+          return response;
+      },
       // requestInterceptor: req => {
       //   //return req;
       //   const promise = new Promise((resolve, reject) => resolve(req));
