@@ -69,12 +69,12 @@ class App extends Component {
     fetch(this.state.definitionLink)
       .then(res => res.json())
       .then((out) => {
-          console.log('openApi before replace: ', out);
+          // console.log('openApi before replace: ', out);
           openApi = out;
 
           openApi.components.schemas.userId.example = userName
 
-          console.log('openApi after replace: ', openApi);
+          // console.log('openApi after replace: ', openApi);
 
           SwaggerUI({
             domNode: document.getElementById("api-data"),
