@@ -74,54 +74,57 @@ class App extends Component {
 
           openApi.components.schemas.userId.example = userName
 
-          console.log('openApi after replace: ', JSON.stringify(openApi));
+          console.log('openApi after replace: ', openApi);
+
+          SwaggerUI({
+            domNode: document.getElementById("api-data"),
+            spec: openApi,
+            // url: this.state.definitionLink,
+            requestInterceptor: function(request) {
+              // request interceptor
+                // add custom headers here
+                request.headers.Authorization = `${jwt}`;
+                return request;
+            },
+            responseInterceptor: function(response) {
+              // request interceptor
+                // add custom headers here
+                response.headers['Access-Control-Allow-Origin'] = '*'
+                return response;
+            },
+            // requestInterceptor: req => {
+            //   //return req;
+            //   const promise = new Promise((resolve, reject) => resolve(req));
+            //   promise.url = req.url
+            //   promise.headers.Authorization = `${jwt}`;
+            //   return promise
+            // }
+            // requestInterceptor: { function(request) {
+            //   console.log(`UserName: ${userName}`)
+            //   // Allow developers to set a bearertoken since
+            //   // const bearerToken = sessionStorage.getItem('bearerToken');
+            //   if (!jwt) {
+            //     alert(`Couldn't find the jwt token`);
+            //     return request;
+            //   } else {
+            //     url = proxyUrl + '/' + this.url
+            //     request.headers.Authorization = `${jwt}`;
+            //     request.headers['Access-Control-Allow-Origin'] = '*'
+            //     request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
+            //     request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+            //     if (request.method === "OPTIONS"){
+            //       w.WriteHeader(http.StatusOK)
+            //       return
+            //     }
+            //     request.parameters.alfUserId = `${userName}`;
+            //     console.log(`Body: ${request.body}`)
+            //     return request;
+            //   }
+            // } }
+          })
       }).catch(err => console.error(err));
 
-    SwaggerUI({
-      domNode: document.getElementById("api-data"),
-      url: this.state.definitionLink,
-      requestInterceptor: function(request) {
-        // request interceptor
-          // add custom headers here
-          request.headers.Authorization = `${jwt}`;
-          return request;
-      },
-      responseInterceptor: function(response) {
-        // request interceptor
-          // add custom headers here
-          response.headers['Access-Control-Allow-Origin'] = '*'
-          return response;
-      },
-      // requestInterceptor: req => {
-      //   //return req;
-      //   const promise = new Promise((resolve, reject) => resolve(req));
-      //   promise.url = req.url
-      //   promise.headers.Authorization = `${jwt}`;
-      //   return promise
-      // }
-      // requestInterceptor: { function(request) {
-      //   console.log(`UserName: ${userName}`)
-      //   // Allow developers to set a bearertoken since
-      //   // const bearerToken = sessionStorage.getItem('bearerToken');
-      //   if (!jwt) {
-      //     alert(`Couldn't find the jwt token`);
-      //     return request;
-      //   } else {
-      //     url = proxyUrl + '/' + this.url
-      //     request.headers.Authorization = `${jwt}`;
-      //     request.headers['Access-Control-Allow-Origin'] = '*'
-      //     request.headers['Access-Control-Allow-Methods'] = "DELETE, POST, GET, OPTIONS"
-      //     request.headers['Access-Control-Allow-Headers'] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-      //     if (request.method === "OPTIONS"){
-      //       w.WriteHeader(http.StatusOK)
-      //       return
-      //     }
-      //     request.parameters.alfUserId = `${userName}`;
-      //     console.log(`Body: ${request.body}`)
-      //     return request;
-      //   }
-      // } }
-    })
+
   }
 
   render() {
