@@ -49,6 +49,7 @@ class App extends Component {
     }).then(authUser =>{
       // console.log(authUser)
       userName = authUser.username;
+      console.log(userName)
     } )
     .catch(err => console.log(err));
 
@@ -64,6 +65,18 @@ class App extends Component {
   }
 
   componentDidMount() {
+    var openApi;
+    fetch(this.state.definitionLink)
+      .then(res => res.json())
+      .then((out) => {
+          console.log('Output: ', out);
+          openApi = out;
+
+          openApi.replace("example: martin","example: " + userName);
+
+          console.log('openApi: ', openApi);
+      }).catch(err => console.error(err));
+
     SwaggerUI({
       domNode: document.getElementById("api-data"),
       url: this.state.definitionLink,
