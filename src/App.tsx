@@ -40,41 +40,6 @@ class App extends Component {
     })
   }
 
-  componentDidMount() {
-    new SwaggerUI({
-        url:'https://api-explorer.alfpro.net/swagger.json'
-    })
-    // var openApi;
-    // fetch('https://api-explorer.alfpro.net/swagger.json')
-    //   .then(res => res.json())
-    //   .then((out) => {
-    //       // console.log('openApi before replace: ', out);
-    //       openApi = out;
-
-    //       openApi.components.schemas.userId.example = userName
-
-    //       // console.log('openApi after replace: ', openApi);
-
-    //       new SwaggerUI({
-    //         // domNode: document.getElementById("api-data"),
-    //         spec: openApi,
-    //         // url: this.state.definitionLink,
-            // requestInterceptor: function (request) {
-            //   // request interceptor
-            //   // add custom headers here
-            //   request.headers.Authorization = `${jwt}`;
-            //   return request;
-            // },
-            // responseInterceptor: function (response) {
-            //   // request interceptor
-            //   // add custom headers here
-            //   response.headers['Access-Control-Allow-Origin'] = '*';
-            //   return response;
-            // },
-    //       })
-    //   }).catch(err => console.error(err));
-  }
-
   render() {
     return (
       <div className="App">
