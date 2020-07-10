@@ -8,13 +8,14 @@ import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 
+// eslint-disable-next-line
 var jwt = 'no';
 var userName: string;
 
 class App extends Component {
   constructor(props: any) {
     super(props);
-    // this.state. = {
+    // this.state = {
     //   definitionLink: "https://api-explorer.alfpro.net/swagger.json",
     // }
 
@@ -28,53 +29,72 @@ class App extends Component {
     .catch(err => console.log(err));
 
     Auth.currentSession().then(res=>{
-      let accessToken = res.getAccessToken()
-      jwt = accessToken.getJwtToken()
+      let accessToken = res.getAccessToken();
+      jwt = accessToken.getJwtToken();
       //You can print them to see the full objects
       // console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
       // console.log(`myJwt: ${jwt}`)
     })
 
-
+    new SwaggerUI({
+      url:'https://api-explorer.alfpro.net/swagger.json'
+    })
   }
 
   componentDidMount() {
-    var openApi;
-    fetch("https://api-explorer.alfpro.net/swagger.json")
-      .then(res => res.json())
-      .then((out) => {
-          // console.log('openApi before replace: ', out);
-          openApi = out;
+    new SwaggerUI({
+        url:'https://api-explorer.alfpro.net/swagger.json'
+    })
+    // var openApi;
+    // fetch('https://api-explorer.alfpro.net/swagger.json')
+    //   .then(res => res.json())
+    //   .then((out) => {
+    //       // console.log('openApi before replace: ', out);
+    //       openApi = out;
 
-          openApi.components.schemas.userId.example = userName
+    //       openApi.components.schemas.userId.example = userName
 
-          // console.log('openApi after replace: ', openApi);
+    //       // console.log('openApi after replace: ', openApi);
 
-          new SwaggerUI({
-            // domNode: document.getElementById("api-data"),
-            spec: openApi,
-            // url: this.state.definitionLink,
-            requestInterceptor: function (request) {
-              // request interceptor
-              // add custom headers here
-              request.headers.Authorization = `${jwt}`;
-              return request;
-            },
-            responseInterceptor: function (response) {
-              // request interceptor
-              // add custom headers here
-              response.headers['Access-Control-Allow-Origin'] = '*';
-              return response;
-            },
-          })
-      }).catch(err => console.error(err));
+    //       new SwaggerUI({
+    //         // domNode: document.getElementById("api-data"),
+    //         spec: openApi,
+    //         // url: this.state.definitionLink,
+            // requestInterceptor: function (request) {
+            //   // request interceptor
+            //   // add custom headers here
+            //   request.headers.Authorization = `${jwt}`;
+            //   return request;
+            // },
+            // responseInterceptor: function (response) {
+            //   // request interceptor
+            //   // add custom headers here
+            //   response.headers['Access-Control-Allow-Origin'] = '*';
+            //   return response;
+            // },
+    //       })
+    //   }).catch(err => console.error(err));
   }
 
   render() {
     return (
       <div className="App">
-        <div id="api-data" />
-      </div>
+       <SwaggerUI
+         url="https://api-explorer.alfpro.net/swagger.json"
+         requestInterceptor={request => {
+          // request interceptor
+          // add custom headers here
+          request.headers.Authorization = `${jwt}`;
+          return request;
+        }}
+        // responseInterceptor={response => {
+        //   // request interceptor
+        //   // add custom headers here
+        //   response.headers['Access-Control-Allow-Origin'] = '*';
+        //   return response;
+        // }}
+        />
+     </div>
     );
   }
 }
