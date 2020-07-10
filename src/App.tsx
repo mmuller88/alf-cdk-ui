@@ -8,7 +8,6 @@ import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 
-// eslint-disable-next-line
 var jwt = 'no';
 var userName: string;
 
