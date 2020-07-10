@@ -1,19 +1,19 @@
 {
     "master": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-authcra-master-144315-authRole",
-            "UnauthRoleArn": "arn:aws:iam::981237193288:role/amplify-authcra-master-144315-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::981237193288:role/amplify-authcra-master-144315-authRole",
-            "Region": "eu-west-2",
-            "DeploymentBucketName": "amplify-authcra-master-144315-deployment",
-            "UnauthRoleName": "amplify-authcra-master-144315-unauthRole",
-            "StackName": "amplify-authcra-master-144315",
-            "StackId": "arn:aws:cloudformation:eu-west-2:981237193288:stack/amplify-authcra-master-144315/efd310a0-8182-11ea-84b5-029d9e7b7264",
-            "AmplifyAppId": "d3o01dvhj4resg"
+            "AuthRoleName": "amplify-alf-cdk-ui-dev-101541-authRole",
+            "UnauthRoleArn": "arn:aws:iam::981237193288:role/amplify-alf-cdk-ui-dev-101541-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::981237193288:role/amplify-alf-cdk-ui-dev-101541-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-alf-cdk-ui-dev-101541-deployment",
+            "UnauthRoleName": "amplify-alf-cdk-ui-dev-101541-unauthRole",
+            "StackName": "amplify-alf-cdk-ui-dev-101541",
+            "StackId": "arn:aws:cloudformation:us-east-1:981237193288:stack/amplify-alf-cdk-ui-dev-101541/effa3170-c28d-11ea-aab1-0a39c55408a9",
+            "AmplifyAppId": "d33ud177i77gfi"
         },
         "categories": {
             "auth": {
-                "cognitocf0c6096": {}
+                "alfcdkui3523b4d0": {}
             }
         }
     }
