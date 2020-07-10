@@ -14,9 +14,6 @@ var userName: string;
 class App extends Component {
   constructor(props: any) {
     super(props);
-    // this.state = {
-    //   definitionLink: "https://api-explorer.alfpro.net/swagger.json",
-    // }
 
     Auth.currentAuthenticatedUser({
         bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
@@ -33,10 +30,6 @@ class App extends Component {
       //You can print them to see the full objects
       // console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
       // console.log(`myJwt: ${jwt}`)
-    })
-
-    new SwaggerUI({
-      url:'https://api-explorer.alfpro.net/swagger.json'
     })
   }
 
