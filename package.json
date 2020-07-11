@@ -17,7 +17,8 @@
     "react-scripts": "^3.4.1",
     "swagger-ui": "^3.28.0",
     "swagger-ui-react": "^3.28.0",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.6",
+    "@martinmuellerdev/alf-cdk-typescript-client": "mmuller88/alf-cdk-typescript-client"
   },
   "resolutions": {
     "set-value": "^2.0.1",
@@ -40,6 +41,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/swagger-ui-react": "^3.23.2"
+    "@types/swagger-ui-react": "^3.23.2",
+    "tslint-config-prettier": "^1.18.0"
   }
 }

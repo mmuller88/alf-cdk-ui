@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-// import './App.css'
+import './App.css'
 import SwaggerUI from 'swagger-ui-react';
 import "swagger-ui-react/swagger-ui.css"
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth }from 'aws-amplify';
 import aws_exports from './aws-exports';
+
+import { Configuration, InstancesConfApi } from '@martinmuellerdev/alf-cdk-typescript-client';
 
 Amplify.configure(aws_exports);
 
@@ -30,7 +32,23 @@ class App extends Component {
       //You can print them to see the full objects
       // console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
       // console.log(`myJwt: ${jwt}`)
+
+      const config = new Configuration({
+        accessToken: jwt,
+        basePath: 'https://api.alfpro.net'
+      });
+
+      const api = new InstancesConfApi(config);
+
+      api.getInstanceConfs().then(succeeded => {
+        succeeded.data.forEach(instanceConf => {
+          // instanceConf.alfInstanceId
+          console.log(`instanceConf: ${JSON.stringify(instanceConf)}`)
+        })
+      })
     })
+
+
   }
 
   render() {
