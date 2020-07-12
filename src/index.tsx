@@ -1,23 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-
-import "swagger-ui-react/swagger-ui.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
 import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <SwaggerUI
-//         url="https://api.mna.dev.spsapps.net/swagger/?format=openapi"
-//         responseInterceptor={response => {
-//           if (response.status === 200) {
-//             console.log(response.data);
-//           }
-//         }}
-//       />
-//     </div>
-//   );
-// }
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
