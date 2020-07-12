@@ -40,7 +40,11 @@ class App extends Component {
 
       const api = new InstancesConfApi(config);
 
-      api.getInstanceConfs().then(succeeded => {
+      api.getInstanceConfs(undefined, {
+        headers: {
+          Authorization: jwt
+        }
+      }).then(succeeded => {
         console.log(`getInstanceConfs succeeded`);
         succeeded.data.forEach(instanceConf => {
           // instanceConf.alfInstanceId
