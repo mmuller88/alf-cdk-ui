@@ -1,0 +1,82 @@
+#!/usr/bin/env node
+import 'source-map-support/register';
+import { Tag, App } from '@aws-cdk/core';
+import { UIStackProps, UIStack } from './ui-stack';
+import { name, devDependencies } from './package.json';
+// import { FrontendPipelineStackProps, FrontendPipelineStack } from './ui-pipeline-stack';
+
+const app = new App();
+Tag.add(app, 'Project', name);
+
+const config = {
+  // appVersion: version,
+  // deployedAt: new Date().toISOString(),
+  // deployBucketName: 'app.uniflow-dev.unimed.de',
+  repositoryName: name,
+  branch: 'master',
+  runtime: { nodejs: 12 },
+  cdkVersion: devDependencies['@aws-cdk/core'],
+};
+
+console.info(`Common config: ${JSON.stringify(config, null, 2)}`);
+
+// const testAccount = {
+//   id: '',
+//   region: '',
+//   stage: 'test',
+//   // domainName: `uniflow-${devAccount.stage}.unimed.de`,
+//   // acmCertRef: 'arn:aws:acm:us-east-1:495958373937:certificate/5881180e-a338-4b6e-a189-3fc6abf779c0',
+//   // subDomain: process.env.SUB_DOMAIN || 'app',
+// }
+
+const prodAccount = {
+  id: '981237193288',
+  region: 'us-east-1',
+  stage: 'prod',
+  domainName: 'alfpro.net',
+  subDomain: 'app',
+  acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789',
+  // subDomain: process.env.SUB_DOMAIN || 'app',
+}
+
+
+for(const account of [prodAccount]) {
+  const uiStackProps : UIStackProps = {
+    env: {
+      account: account.id,
+      region: account.region,
+    },
+    stage: account.stage,
+    domainName: account.domainName,
+    acmCertRef: account.acmCertRef,
+    subDomain: account.subDomain,
+    // subDomain: account.subDomain,
+  }
+  console.info(`${account.stage} UIStackProps: ${JSON.stringify(uiStackProps, null, 2)}`);
+
+  // tslint:disable-next-line: no-unused-expression
+  new UIStack(app, `${config.repositoryName}-${account.stage}`, uiStackProps);
+}
+
+// const frontendPipelineStackProps: FrontendPipelineStackProps = {
+//   env: {
+//     account: buildAccount.id,
+//     region: AllowedRegions.euCentral1,
+//   },
+//   cdkVersion: config.cdkVersion,
+//   // stackName: `${config.functionName}-pipeline-stack-build`,
+//   repositoryName: config.repositoryName,
+//   branch: config.branch,
+//   runtime: config.runtime,
+//   skipInfrastructureDeploy: config.skipInfrastructureDeploy,
+//   // deployBucketName: '',
+//   // domainName: '',
+//   // cloudfrontId: '',
+//   // bucketName: '',
+//   // bucketArn: ''
+// };
+// console.info(`frontendPipelineStackProps: ${JSON.stringify(frontendPipelineStackProps, null, 2)}`);
+
+// new FrontendPipelineStack(app, `${config.functionName}-pipeline-stack-build`, frontendPipelineStackProps);
+
+app.synth();

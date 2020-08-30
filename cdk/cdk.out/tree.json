@@ -1,0 +1,797 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree"
+      },
+      "alf-cdk-ui-prod": {
+        "id": "alf-cdk-ui-prod",
+        "path": "alf-cdk-ui-prod",
+        "children": {
+          "alfpro.net": {
+            "id": "alfpro.net",
+            "path": "alf-cdk-ui-prod/alfpro.net",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "alf-cdk-ui-prod/alfpro.net/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketName": "app.alfpro.net",
+                    "tags": [
+                      {
+                        "key": "Project",
+                        "value": "alf-cdk-ui"
+                      }
+                    ],
+                    "websiteConfiguration": {
+                      "indexDocument": "index.html",
+                      "errorDocument": "index.html"
+                    }
+                  }
+                }
+              },
+              "Notifications": {
+                "id": "Notifications",
+                "path": "alf-cdk-ui-prod/alfpro.net/Notifications"
+              },
+              "AutoBucketHandler": {
+                "id": "AutoBucketHandler",
+                "path": "alf-cdk-ui-prod/alfpro.net/AutoBucketHandler"
+              },
+              "AutoBucket": {
+                "id": "AutoBucket",
+                "path": "alf-cdk-ui-prod/alfpro.net/AutoBucket",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "alf-cdk-ui-prod/alfpro.net/AutoBucket/Default"
+                  }
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "alf-cdk-ui-prod/alfpro.net/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "alf-cdk-ui-prod/alfpro.net/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "alfpronetD87BCA51"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "s3:GetObject*",
+                                "s3:GetBucket*",
+                                "s3:List*"
+                              ],
+                              "Effect": "Allow",
+                              "Principal": {
+                                "CanonicalUser": {
+                                  "Fn::GetAtt": [
+                                    "OAIE1EFC67F",
+                                    "S3CanonicalUserId"
+                                  ]
+                                }
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "alfpronetD87BCA51",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "alfpronetD87BCA51",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "AutoBucket7677dc81117d41c0b75bdb11cb84bb70": {
+            "id": "AutoBucket7677dc81117d41c0b75bdb11cb84bb70",
+            "path": "alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ],
+                        "tags": [
+                          {
+                            "key": "Project",
+                            "value": "alf-cdk-ui"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "s3:GetObject*",
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:DeleteObject*",
+                                    "s3:PutObject*",
+                                    "s3:Abort*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "alfpronetD87BCA51",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "alfpronetD87BCA51",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "AutoBucket7677dc81117d41c0b75bdb11cb84bb70ServiceRoleDefaultPolicy57248D6C",
+                            "roles": [
+                              {
+                                "Ref": "AutoBucket7677dc81117d41c0b75bdb11cb84bb70ServiceRole2F2A10DB"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/Code/Stage"
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/Code/AssetBucket"
+                  }
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameters392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1S3BucketC0082D36"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1S3VersionKey929B15CD"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1S3VersionKey929B15CD"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "handler": "main.handler",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "AutoBucket7677dc81117d41c0b75bdb11cb84bb70ServiceRole2F2A10DB",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "nodejs10.x",
+                    "tags": [
+                      {
+                        "key": "Project",
+                        "value": "alf-cdk-ui"
+                      }
+                    ],
+                    "timeout": 900
+                  }
+                }
+              }
+            }
+          },
+          "AssetParameters": {
+            "id": "AssetParameters",
+            "path": "alf-cdk-ui-prod/AssetParameters",
+            "children": {
+              "392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1": {
+                "id": "392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1",
+                "path": "alf-cdk-ui-prod/AssetParameters/392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "alf-cdk-ui-prod/AssetParameters/392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1/S3Bucket"
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "alf-cdk-ui-prod/AssetParameters/392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1/S3VersionKey"
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "alf-cdk-ui-prod/AssetParameters/392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1/ArtifactHash"
+                  }
+                }
+              },
+              "4184245adc1f2ed71e1f0ae5719f8fd7f34324b750f1bf06b2fb5cf1f4014f50": {
+                "id": "4184245adc1f2ed71e1f0ae5719f8fd7f34324b750f1bf06b2fb5cf1f4014f50",
+                "path": "alf-cdk-ui-prod/AssetParameters/4184245adc1f2ed71e1f0ae5719f8fd7f34324b750f1bf06b2fb5cf1f4014f50",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "alf-cdk-ui-prod/AssetParameters/4184245adc1f2ed71e1f0ae5719f8fd7f34324b750f1bf06b2fb5cf1f4014f50/S3Bucket"
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "alf-cdk-ui-prod/AssetParameters/4184245adc1f2ed71e1f0ae5719f8fd7f34324b750f1bf06b2fb5cf1f4014f50/S3VersionKey"
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "alf-cdk-ui-prod/AssetParameters/4184245adc1f2ed71e1f0ae5719f8fd7f34324b750f1bf06b2fb5cf1f4014f50/ArtifactHash"
+                  }
+                }
+              },
+              "3b8ea2f68f5353e2a1ff8f7eca2a4833db0814795459ba4e931dc9cbafc76cf6": {
+                "id": "3b8ea2f68f5353e2a1ff8f7eca2a4833db0814795459ba4e931dc9cbafc76cf6",
+                "path": "alf-cdk-ui-prod/AssetParameters/3b8ea2f68f5353e2a1ff8f7eca2a4833db0814795459ba4e931dc9cbafc76cf6",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "alf-cdk-ui-prod/AssetParameters/3b8ea2f68f5353e2a1ff8f7eca2a4833db0814795459ba4e931dc9cbafc76cf6/S3Bucket"
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "alf-cdk-ui-prod/AssetParameters/3b8ea2f68f5353e2a1ff8f7eca2a4833db0814795459ba4e931dc9cbafc76cf6/S3VersionKey"
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "alf-cdk-ui-prod/AssetParameters/3b8ea2f68f5353e2a1ff8f7eca2a4833db0814795459ba4e931dc9cbafc76cf6/ArtifactHash"
+                  }
+                }
+              }
+            }
+          },
+          "OAI": {
+            "id": "OAI",
+            "path": "alf-cdk-ui-prod/OAI",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "alf-cdk-ui-prod/OAI/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+                  "aws:cdk:cloudformation:props": {
+                    "cloudFrontOriginAccessIdentityConfig": {
+                      "comment": "OAI for alfpro.net website."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "app.alfpro.net-cfd": {
+            "id": "app.alfpro.net-cfd",
+            "path": "alf-cdk-ui-prod/app.alfpro.net-cfd",
+            "children": {
+              "AliasConfigurationCert": {
+                "id": "AliasConfigurationCert",
+                "path": "alf-cdk-ui-prod/app.alfpro.net-cfd/AliasConfigurationCert"
+              },
+              "CFDistribution": {
+                "id": "CFDistribution",
+                "path": "alf-cdk-ui-prod/app.alfpro.net-cfd/CFDistribution",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudFront::Distribution",
+                  "aws:cdk:cloudformation:props": {
+                    "distributionConfig": {
+                      "enabled": true,
+                      "defaultRootObject": "index.html",
+                      "httpVersion": "http2",
+                      "priceClass": "PriceClass_100",
+                      "ipv6Enabled": true,
+                      "customErrorResponses": [
+                        {
+                          "errorCode": 404,
+                          "errorCachingMinTtl": 60,
+                          "responseCode": 200,
+                          "responsePagePath": "/index.html"
+                        }
+                      ],
+                      "origins": [
+                        {
+                          "id": "origin1",
+                          "domainName": {
+                            "Fn::GetAtt": [
+                              "alfpronetD87BCA51",
+                              "RegionalDomainName"
+                            ]
+                          },
+                          "s3OriginConfig": {
+                            "originAccessIdentity": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "origin-access-identity/cloudfront/",
+                                  {
+                                    "Ref": "OAIE1EFC67F"
+                                  }
+                                ]
+                              ]
+                            }
+                          },
+                          "connectionAttempts": 3,
+                          "connectionTimeout": 10
+                        }
+                      ],
+                      "defaultCacheBehavior": {
+                        "allowedMethods": [
+                          "GET",
+                          "HEAD"
+                        ],
+                        "cachedMethods": [
+                          "GET",
+                          "HEAD"
+                        ],
+                        "compress": true,
+                        "forwardedValues": {
+                          "queryString": false,
+                          "cookies": {
+                            "forward": "none"
+                          }
+                        },
+                        "targetOriginId": "origin1",
+                        "viewerProtocolPolicy": "redirect-to-https"
+                      },
+                      "aliases": [
+                        "app.alfpro.net"
+                      ],
+                      "viewerCertificate": {
+                        "acmCertificateArn": "arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789",
+                        "sslSupportMethod": "sni-only",
+                        "minimumProtocolVersion": "TLSv1.1_2016"
+                      }
+                    },
+                    "tags": [
+                      {
+                        "key": "Project",
+                        "value": "alf-cdk-ui"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)": {
+            "id": "DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)",
+            "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)",
+            "children": {
+              "CustomResourceHandler": {
+                "id": "CustomResourceHandler",
+                "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)/CustomResourceHandler"
+              },
+              "Asset1": {
+                "id": "Asset1",
+                "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)/Asset1",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)/Asset1/Stage"
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)/Asset1/AssetBucket"
+                  }
+                }
+              },
+              "CustomResource": {
+                "id": "CustomResource",
+                "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)/CustomResource",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)/CustomResource/Default"
+                  }
+                }
+              }
+            }
+          },
+          "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C": {
+            "id": "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
+            "path": "alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ],
+                        "tags": [
+                          {
+                            "key": "Project",
+                            "value": "alf-cdk-ui"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "s3:GetObject*",
+                                    "s3:GetBucket*",
+                                    "s3:List*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":s3:::",
+                                          {
+                                            "Ref": "AssetParameters3b8ea2f68f5353e2a1ff8f7eca2a4833db0814795459ba4e931dc9cbafc76cf6S3BucketAC440E17"
+                                          }
+                                        ]
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":s3:::",
+                                          {
+                                            "Ref": "AssetParameters3b8ea2f68f5353e2a1ff8f7eca2a4833db0814795459ba4e931dc9cbafc76cf6S3BucketAC440E17"
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "s3:GetObject*",
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:DeleteObject*",
+                                    "s3:PutObject*",
+                                    "s3:Abort*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "alfpronetD87BCA51",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "alfpronetD87BCA51",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "cloudfront:GetInvalidation",
+                                    "cloudfront:CreateInvalidation"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+                            "roles": [
+                              {
+                                "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/Stage"
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/AssetBucket"
+                  }
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameters4184245adc1f2ed71e1f0ae5719f8fd7f34324b750f1bf06b2fb5cf1f4014f50S3BucketB6159468"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters4184245adc1f2ed71e1f0ae5719f8fd7f34324b750f1bf06b2fb5cf1f4014f50S3VersionKey2060CAC0"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameters4184245adc1f2ed71e1f0ae5719f8fd7f34324b750f1bf06b2fb5cf1f4014f50S3VersionKey2060CAC0"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "handler": "index.handler",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "python3.6",
+                    "tags": [
+                      {
+                        "key": "Project",
+                        "value": "alf-cdk-ui"
+                      }
+                    ],
+                    "timeout": 900
+                  }
+                }
+              }
+            }
+          },
+          "Zone": {
+            "id": "Zone",
+            "path": "alf-cdk-ui-prod/Zone"
+          },
+          "SiteAliasRecord": {
+            "id": "SiteAliasRecord",
+            "path": "alf-cdk-ui-prod/SiteAliasRecord",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "alf-cdk-ui-prod/SiteAliasRecord/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "app.alfpro.net.",
+                    "type": "A",
+                    "aliasTarget": {
+                      "hostedZoneId": {
+                        "Fn::FindInMap": [
+                          "AWSCloudFrontPartitionHostedZoneIdMap",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          "zoneId"
+                        ]
+                      },
+                      "dnsName": {
+                        "Fn::GetAtt": [
+                          "appalfpronetcfdCFDistribution606E599F",
+                          "DomainName"
+                        ]
+                      }
+                    },
+                    "hostedZoneId": "Z05027561FL1C7WWU4SX4"
+                  }
+                }
+              }
+            }
+          },
+          "AWSCloudFrontPartitionHostedZoneIdMap": {
+            "id": "AWSCloudFrontPartitionHostedZoneIdMap",
+            "path": "alf-cdk-ui-prod/AWSCloudFrontPartitionHostedZoneIdMap"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,249 @@
+import { Repository } from '@aws-cdk/aws-codecommit';
+import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
+import { CodeCommitSourceAction, CodeBuildAction, ManualApprovalAction } from '@aws-cdk/aws-codepipeline-actions';
+import { App, Stack, StackProps, Tag } from '@aws-cdk/core';
+import { devAccount, AllowedRegions, qaAccount, prodAccount, AccountConfig } from 'infrastructure-aws/lib/account-config';
+import { ServicePrincipal, Role, ManagedPolicy } from '@aws-cdk/aws-iam';
+import { BuildEnvironmentVariableType, PipelineProject, BuildSpec, LinuxBuildImage } from '@aws-cdk/aws-codebuild';
+
+export interface FrontendPipelineStackProps extends StackProps {
+  cdkVersion: string;
+  // domainName: string;
+  // bucketName: string;
+  // bucketArn: string;
+  // cloudfrontId: string;
+  repositoryName: string;
+  branch: string;
+  runtime: {[k: string]: string | number};
+  skipInfrastructureDeploy?: boolean;
+  // deployBucketName: string;
+}
+
+function createRoleProfile(account: AccountConfig) {
+  return [
+    `aws --profile unimed-${account.stage} configure set source_profile default`,
+    `aws --profile unimed-${account.stage} configure set role_arn 'arn:aws:iam::${account.id}:role/unimed-${account.stage}'`,
+    `aws --profile unimed-${account.stage} configure set region ${AllowedRegions.euCentral1}`,
+  ];
+}
+
+export class FrontendPipelineStack extends Stack {
+  constructor(app: App, id: string, props: FrontendPipelineStackProps) {
+    super(app, id, props);
+
+    Tag.add(this, 'FrontendPipeline', this.stackName);
+
+    const pipeline = new Pipeline(this, `${this.stackName}-pipeline`, {
+      pipelineName: `${this.stackName}-pipeline`,
+    });
+
+    const code = Repository.fromRepositoryName(this, `${this.stackName}-repo`, props.repositoryName);
+
+    const cdkDeployRole = new Role(this, 'createInstanceBuildRole', {
+      assumedBy: new ServicePrincipal('codebuild.amazonaws.com'),   // required
+      managedPolicies: [
+        // ManagedPolicy.fromAwsManagedPolicyName('CloudWatchLogsFullAccess'),
+        // ManagedPolicy.fromAwsManagedPolicyName('AmazonS3FullAccess'),
+        // ManagedPolicy.fromAwsManagedPolicyName('AWSCloudFormationFullAccess'),
+        ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'), // TODO find out the right permissions
+      ],
+    });
+
+    // cdkDeployRole.addToPolicy(new PolicyStatement({
+    //   resources: ['*'],
+    //   actions: ['codebuild:*', 'logs:*', 'cloudformation:*', 's3:*', 'sns:*', 'sts:AssumeRole', 'codecommit:*'],
+    // }));
+
+    // iam policy to push to S3 if it is a frontend build
+    // cdkDeployRole.addToPolicy(
+    //     new PolicyStatement({
+    //       effect: Effect.ALLOW,
+    //       resources: [props.bucketArn, `${props.bucketArn}/*`],
+    //       actions: [
+    //         's3:GetBucket*',
+    //         's3:List*',
+    //         's3:GetObject*',
+    //         's3:DeleteObject',
+    //         's3:PutObject',
+    //       ],
+    //     })
+    // );
+
+    // // iam policy to invalidate cloudfront dsitribution's cache
+    // cdkDeployRole.addToPolicy(
+    //     new PolicyStatement({
+    //       effect: Effect.ALLOW,
+    //       resources: ['*'],
+    //       actions: [
+    //         'cloudfront:CreateInvalidation',
+    //         'cloudfront:GetDistribution*',
+    //         'cloudfront:GetInvalidation',
+    //         'cloudfront:ListInvalidations',
+    //         'cloudfront:ListDistributions',
+    //       ],
+    //     })
+    // );
+
+    const cdkBuild = new PipelineProject(this, `${this.stackName}-build`, {
+      projectName: `${this.stackName}-build`,
+      role: cdkDeployRole,
+      buildSpec: BuildSpec.fromObject({
+        env: { 'git-credential-helper': 'yes' },
+        version: '0.2',
+        phases: {
+          install: {
+            'runtime-versions':
+            props.runtime,
+            commands: ['npm install',
+              `npm install -g aws-cdk@${props.cdkVersion}`,
+            ],
+          },
+          build: {
+            commands: [
+              'npm run build',
+              'ls -la',
+            ],
+          },
+          post_build: {
+            commands:
+                [
+                  // 'npm run test',
+                ],
+          },
+        },
+        // artifacts: {
+        //   'base-directory': 'build',
+        //   files: [
+        //     '**/*',
+        //   ],
+        // },
+      }),
+      environment: {
+        buildImage: LinuxBuildImage.STANDARD_4_0,
+      },
+    });
+
+
+    const cdkDeployBuild = new PipelineProject(this, `${this.stackName}-deployBuild`, {
+      projectName: `${this.stackName}-deployBuild`,
+      role: cdkDeployRole,
+      environmentVariables: {
+        deployerAccessKeyId: {
+          value: 'deployer-access-key-id',
+          type: BuildEnvironmentVariableType.PARAMETER_STORE,
+        },
+        deployerSecretAccessKey: {
+          value: 'deployer-secret-access-key',
+          type: BuildEnvironmentVariableType.PARAMETER_STORE,
+        },
+      },
+      buildSpec: BuildSpec.fromObject({
+        env: { 'git-credential-helper': 'yes' },
+        version: '0.2',
+        phases: {
+          install: {
+            'runtime-versions': props.runtime,
+            commands: [
+              'aws --profile default configure set aws_access_key_id $deployerAccessKeyId',
+              'aws --profile default configure set aws_secret_access_key $deployerSecretAccessKey',
+              // @ts-ignore
+              `aws --profile default configure set region ${props.env.region}`,
+              // @ts-ignore
+              ...createRoleProfile(devAccount),
+              // @ts-ignore
+              ...createRoleProfile(qaAccount),
+              // @ts-ignore
+              ...createRoleProfile(prodAccount),
+              'npm install',
+              'cd cdk && npm install && cd ..',
+              `npm install -g aws-cdk@${props.cdkVersion}`,
+            ],
+          },
+          build: {
+            commands: [
+              'npm run build',
+              // 'cd build && npm install --only=production && cd ..',
+              'ls -la',
+              'echo "run: $CDK_COMMAND"',
+              'eval $CDK_COMMAND',
+            ],
+          },
+        },
+        artifacts: {
+          'base-directory': 'build',
+          files: [
+            '**/*',
+          ],
+        },
+      }),
+      environment: {
+        buildImage: LinuxBuildImage.STANDARD_4_0,
+      },
+    });
+
+    const sourceOutput = new Artifact();
+    const cdkBuildOutput = new Artifact(`${this.stackName}-cdk-build-output`);
+
+    const codeCommitSourceAction = new CodeCommitSourceAction({
+      actionName: 'CodeCommitSource',
+      branch: props.branch,
+      repository: code,
+      output: sourceOutput,
+    });
+
+    pipeline.addStage({
+      stageName: 'Source',
+      actions: [
+        codeCommitSourceAction,
+      ],
+    });
+
+    pipeline.addStage({
+      stageName: 'Build',
+      actions: [
+        new CodeBuildAction({
+          actionName: 'CdkLintAndBuild',
+          project: cdkBuild,
+          input: sourceOutput,
+          outputs: [cdkBuildOutput],
+        }),
+      ],
+    });
+
+// todo: add devAccount later
+    for (const account of [devAccount, qaAccount, prodAccount]) {
+      const deployStage = pipeline.addStage({
+        stageName: `DeployStage${account.stage[0].toUpperCase()}${account.stage.slice(1)}`,
+      });
+
+      deployStage.addAction(new CodeBuildAction({
+        input: sourceOutput,
+        environmentVariables: {
+          CDK_COMMAND: { value: `cd cdk && cdk diff '${this.stackName}-${account.stage}' --profile unimed-${account.stage} || true` },
+        },
+        project: cdkDeployBuild,
+        actionName: 'CreateDiff',
+        runOrder: 1,
+      }));
+
+      // If not in dev stage, ask for approvement before deploying
+      if (account.id !== devAccount.id) {
+        deployStage.addAction(new ManualApprovalAction({
+          actionName: 'ApproveDiff',
+          runOrder: 2,
+        }));
+      }
+
+      deployStage.addAction(new CodeBuildAction({
+        input: sourceOutput,
+        environmentVariables: {
+          // CDK_COMMAND: { value: `cdk deploy '${this.stackName}-${account.stage}' --require-approval never --profile ${account.stage}` },
+          CDK_COMMAND: { value: `make cdkdeploy${account.stage}` },
+        },
+        project: cdkDeployBuild,
+        actionName: 'DeployBuild',
+        runOrder: 3,
+      }));
+    }
+  }
+}
