@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import { Tag, App } from '@aws-cdk/core';
 import { UIStackProps, UIStack } from './ui-stack';
 import { name, devDependencies } from './package.json';
+import { UIPipelineStackProps, UIPipelineStack } from './ui-pipeline-stack';
 // import { FrontendPipelineStackProps, FrontendPipelineStack } from './ui-pipeline-stack';
 
 const app = new App();
@@ -29,7 +30,7 @@ console.info(`Common config: ${JSON.stringify(config, null, 2)}`);
 //   // subDomain: process.env.SUB_DOMAIN || 'app',
 // }
 
-const prodAccount = {
+export const prodAccount = {
   id: '981237193288',
   region: 'us-east-1',
   stage: 'prod',
@@ -58,25 +59,24 @@ for(const account of [prodAccount]) {
   new UIStack(app, `${config.repositoryName}-${account.stage}`, uiStackProps);
 }
 
-// const frontendPipelineStackProps: FrontendPipelineStackProps = {
-//   env: {
-//     account: buildAccount.id,
-//     region: AllowedRegions.euCentral1,
-//   },
-//   cdkVersion: config.cdkVersion,
-//   // stackName: `${config.functionName}-pipeline-stack-build`,
-//   repositoryName: config.repositoryName,
-//   branch: config.branch,
-//   runtime: config.runtime,
-//   skipInfrastructureDeploy: config.skipInfrastructureDeploy,
-//   // deployBucketName: '',
-//   // domainName: '',
-//   // cloudfrontId: '',
-//   // bucketName: '',
-//   // bucketArn: ''
-// };
-// console.info(`frontendPipelineStackProps: ${JSON.stringify(frontendPipelineStackProps, null, 2)}`);
+const uiPipelineStackProps: UIPipelineStackProps = {
+  env: {
+    account: prodAccount.id,
+    region: prodAccount.region,
+  },
+  cdkVersion: config.cdkVersion,
+  // stackName: `${config.functionName}-pipeline-stack-build`,
+  repositoryName: config.repositoryName,
+  branch: config.branch,
+  runtime: config.runtime,
+  // deployBucketName: '',
+  // domainName: '',
+  // cloudfrontId: '',
+  // bucketName: '',
+  // bucketArn: ''
+};
+console.info(`uiPipelineStackProps: ${JSON.stringify(uiPipelineStackProps, null, 2)}`);
 
-// new FrontendPipelineStack(app, `${config.functionName}-pipeline-stack-build`, frontendPipelineStackProps);
+new UIPipelineStack(app, `${config.repositoryName}-pipeline-stack-build`, uiPipelineStackProps);
 
 app.synth();

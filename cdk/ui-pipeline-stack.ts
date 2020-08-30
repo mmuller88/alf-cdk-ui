@@ -1,34 +1,39 @@
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { CodeCommitSourceAction, CodeBuildAction, ManualApprovalAction } from '@aws-cdk/aws-codepipeline-actions';
+import { CodeCommitSourceAction, CodeBuildAction } from '@aws-cdk/aws-codepipeline-actions';
 import { App, Stack, StackProps, Tag } from '@aws-cdk/core';
-import { devAccount, AllowedRegions, qaAccount, prodAccount, AccountConfig } from 'infrastructure-aws/lib/account-config';
 import { ServicePrincipal, Role, ManagedPolicy } from '@aws-cdk/aws-iam';
 import { BuildEnvironmentVariableType, PipelineProject, BuildSpec, LinuxBuildImage } from '@aws-cdk/aws-codebuild';
+import { prodAccount } from './app';
 
-export interface FrontendPipelineStackProps extends StackProps {
+// const prodAccount = {
+//   id: '981237193288',
+//   region: 'us-east-1',
+//   stage: 'prod',
+//   domainName: 'alfpro.net',
+//   subDomain: 'app',
+//   acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789',
+//   // subDomain: process.env.SUB_DOMAIN || 'app',
+// }
+
+export interface UIPipelineStackProps extends StackProps {
   cdkVersion: string;
   // domainName: string;
-  // bucketName: string;
-  // bucketArn: string;
-  // cloudfrontId: string;
   repositoryName: string;
   branch: string;
   runtime: {[k: string]: string | number};
-  skipInfrastructureDeploy?: boolean;
-  // deployBucketName: string;
 }
 
-function createRoleProfile(account: AccountConfig) {
-  return [
-    `aws --profile unimed-${account.stage} configure set source_profile default`,
-    `aws --profile unimed-${account.stage} configure set role_arn 'arn:aws:iam::${account.id}:role/unimed-${account.stage}'`,
-    `aws --profile unimed-${account.stage} configure set region ${AllowedRegions.euCentral1}`,
-  ];
-}
+// function createRoleProfile(account: AccountConfig) {
+//   return [
+//     `aws --profile unimed-${account.stage} configure set source_profile damadden88`,
+//     `aws --profile unimed-${account.stage} configure set role_arn 'arn:aws:iam::${account.id}:role/unimed-${account.stage}'`,
+//     `aws --profile unimed-${account.stage} configure set region ${AllowedRegions.euCentral1}`,
+//   ];
+// }
 
-export class FrontendPipelineStack extends Stack {
-  constructor(app: App, id: string, props: FrontendPipelineStackProps) {
+export class UIPipelineStack extends Stack {
+  constructor(app: App, id: string, props: UIPipelineStackProps) {
     super(app, id, props);
 
     Tag.add(this, 'FrontendPipeline', this.stackName);
@@ -48,41 +53,6 @@ export class FrontendPipelineStack extends Stack {
         ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'), // TODO find out the right permissions
       ],
     });
-
-    // cdkDeployRole.addToPolicy(new PolicyStatement({
-    //   resources: ['*'],
-    //   actions: ['codebuild:*', 'logs:*', 'cloudformation:*', 's3:*', 'sns:*', 'sts:AssumeRole', 'codecommit:*'],
-    // }));
-
-    // iam policy to push to S3 if it is a frontend build
-    // cdkDeployRole.addToPolicy(
-    //     new PolicyStatement({
-    //       effect: Effect.ALLOW,
-    //       resources: [props.bucketArn, `${props.bucketArn}/*`],
-    //       actions: [
-    //         's3:GetBucket*',
-    //         's3:List*',
-    //         's3:GetObject*',
-    //         's3:DeleteObject',
-    //         's3:PutObject',
-    //       ],
-    //     })
-    // );
-
-    // // iam policy to invalidate cloudfront dsitribution's cache
-    // cdkDeployRole.addToPolicy(
-    //     new PolicyStatement({
-    //       effect: Effect.ALLOW,
-    //       resources: ['*'],
-    //       actions: [
-    //         'cloudfront:CreateInvalidation',
-    //         'cloudfront:GetDistribution*',
-    //         'cloudfront:GetInvalidation',
-    //         'cloudfront:ListInvalidations',
-    //         'cloudfront:ListDistributions',
-    //       ],
-    //     })
-    // );
 
     const cdkBuild = new PipelineProject(this, `${this.stackName}-build`, {
       projectName: `${this.stackName}-build`,
@@ -144,16 +114,16 @@ export class FrontendPipelineStack extends Stack {
           install: {
             'runtime-versions': props.runtime,
             commands: [
-              'aws --profile default configure set aws_access_key_id $deployerAccessKeyId',
-              'aws --profile default configure set aws_secret_access_key $deployerSecretAccessKey',
+              'aws --profile damadden88 configure set aws_access_key_id $deployerAccessKeyId',
+              'aws --profile damadden88 configure set aws_secret_access_key $deployerSecretAccessKey',
               // @ts-ignore
               `aws --profile default configure set region ${props.env.region}`,
-              // @ts-ignore
-              ...createRoleProfile(devAccount),
-              // @ts-ignore
-              ...createRoleProfile(qaAccount),
-              // @ts-ignore
-              ...createRoleProfile(prodAccount),
+              // // @ts-ignore
+              // ...createRoleProfile(devAccount),
+              // // @ts-ignore
+              // ...createRoleProfile(qaAccount),
+              // // @ts-ignore
+              // ...createRoleProfile(prodAccount),
               'npm install',
               'cd cdk && npm install && cd ..',
               `npm install -g aws-cdk@${props.cdkVersion}`,
@@ -211,7 +181,7 @@ export class FrontendPipelineStack extends Stack {
     });
 
 // todo: add devAccount later
-    for (const account of [devAccount, qaAccount, prodAccount]) {
+    for (const account of [prodAccount]) {
       const deployStage = pipeline.addStage({
         stageName: `DeployStage${account.stage[0].toUpperCase()}${account.stage.slice(1)}`,
       });
@@ -227,12 +197,12 @@ export class FrontendPipelineStack extends Stack {
       }));
 
       // If not in dev stage, ask for approvement before deploying
-      if (account.id !== devAccount.id) {
-        deployStage.addAction(new ManualApprovalAction({
-          actionName: 'ApproveDiff',
-          runOrder: 2,
-        }));
-      }
+      // if (account.id !== devAccount.id) {
+      //   deployStage.addAction(new ManualApprovalAction({
+      //     actionName: 'ApproveDiff',
+      //     runOrder: 2,
+      //   }));
+      // }
 
       deployStage.addAction(new CodeBuildAction({
         input: sourceOutput,

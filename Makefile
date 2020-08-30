@@ -75,7 +75,7 @@ cdkpipelinediff: check-env cdkclean cdkbuild
 
 .PHONY: cdkpipelinedeploy
 cdkpipelinedeploy: check-env cdkclean cdkbuild
-	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build" --profile unimed-build
+	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 --require-approval never
 
 .PHONY: reload-infra
 reload-infra:

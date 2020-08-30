@@ -346,7 +346,7 @@
         "aws:cdk:path": "alf-cdk-ui-prod/app.alfpro.net-cfd/CFDistribution"
       }
     },
-    "DeployAppSunAug302020075048GMT0200CentralEuropeanSummerTimeCustomResource12F5F95C": {
+    "DeployAppSunAug302020160514GMT0200CentralEuropeanSummerTimeCustomResource8062840F": {
       "Type": "Custom::CDKBucketDeployment",
       "Properties": {
         "ServiceToken": {
@@ -409,7 +409,7 @@
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete",
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 07:50:48 GMT+0200 (Central European Summer Time)/CustomResource/Default"
+        "aws:cdk:path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)/CustomResource/Default"
       }
     },
     "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": {
@@ -694,6 +694,13 @@
       },
       "aws-cn": {
         "zoneId": "Z3RFFRIM2A3IF5"
+      }
+    }
+  },
+  "Outputs": {
+    "route": {
+      "Value": {
+        "Ref": "SiteAliasRecord3C0AF5BF"
       }
     }
   }
