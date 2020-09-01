@@ -30,7 +30,7 @@ console.info(`Common config: ${JSON.stringify(config, null, 2)}`);
 //   // subDomain: process.env.SUB_DOMAIN || 'app',
 // }
 
-export const prodAccount = {
+const prodAccount = {
   id: '981237193288',
   region: 'us-east-1',
   stage: 'prod',

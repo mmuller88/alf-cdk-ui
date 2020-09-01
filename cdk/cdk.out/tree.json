@@ -476,35 +476,35 @@
               }
             }
           },
-          "DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)": {
-            "id": "DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)",
-            "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)",
+          "DeployApp-Mon Aug 31 2020 08:27:10 GMT+0200 (Central European Summer Time)": {
+            "id": "DeployApp-Mon Aug 31 2020 08:27:10 GMT+0200 (Central European Summer Time)",
+            "path": "alf-cdk-ui-prod/DeployApp-Mon Aug 31 2020 08:27:10 GMT+0200 (Central European Summer Time)",
             "children": {
               "CustomResourceHandler": {
                 "id": "CustomResourceHandler",
-                "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)/CustomResourceHandler"
+                "path": "alf-cdk-ui-prod/DeployApp-Mon Aug 31 2020 08:27:10 GMT+0200 (Central European Summer Time)/CustomResourceHandler"
               },
               "Asset1": {
                 "id": "Asset1",
-                "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)/Asset1",
+                "path": "alf-cdk-ui-prod/DeployApp-Mon Aug 31 2020 08:27:10 GMT+0200 (Central European Summer Time)/Asset1",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)/Asset1/Stage"
+                    "path": "alf-cdk-ui-prod/DeployApp-Mon Aug 31 2020 08:27:10 GMT+0200 (Central European Summer Time)/Asset1/Stage"
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)/Asset1/AssetBucket"
+                    "path": "alf-cdk-ui-prod/DeployApp-Mon Aug 31 2020 08:27:10 GMT+0200 (Central European Summer Time)/Asset1/AssetBucket"
                   }
                 }
               },
               "CustomResource": {
                 "id": "CustomResource",
-                "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)/CustomResource",
+                "path": "alf-cdk-ui-prod/DeployApp-Mon Aug 31 2020 08:27:10 GMT+0200 (Central European Summer Time)/CustomResource",
                 "children": {
                   "Default": {
                     "id": "Default",
-                    "path": "alf-cdk-ui-prod/DeployApp-Sun Aug 30 2020 16:05:14 GMT+0200 (Central European Summer Time)/CustomResource/Default"
+                    "path": "alf-cdk-ui-prod/DeployApp-Mon Aug 31 2020 08:27:10 GMT+0200 (Central European Summer Time)/CustomResource/Default"
                   }
                 }
               }
@@ -882,25 +882,6 @@
                               "Principal": {
                                 "AWS": {
                                   "Fn::GetAtt": [
-                                    "alfcdkuipipelinestackbuildpipelineSourceCodeCommitSourceCodePipelineActionRole03C4C03F",
-                                    "Arn"
-                                  ]
-                                }
-                              },
-                              "Resource": "*"
-                            },
-                            {
-                              "Action": [
-                                "kms:Decrypt",
-                                "kms:DescribeKey",
-                                "kms:Encrypt",
-                                "kms:ReEncrypt*",
-                                "kms:GenerateDataKey*"
-                              ],
-                              "Effect": "Allow",
-                              "Principal": {
-                                "AWS": {
-                                  "Fn::GetAtt": [
                                     "createInstanceBuildRole8DCFD6F4",
                                     "Arn"
                                   ]
@@ -1133,16 +1114,6 @@
                                   "Effect": "Allow",
                                   "Resource": {
                                     "Fn::GetAtt": [
-                                      "alfcdkuipipelinestackbuildpipelineSourceCodeCommitSourceCodePipelineActionRole03C4C03F",
-                                      "Arn"
-                                    ]
-                                  }
-                                },
-                                {
-                                  "Action": "sts:AssumeRole",
-                                  "Effect": "Allow",
-                                  "Resource": {
-                                    "Fn::GetAtt": [
                                       "alfcdkuipipelinestackbuildpipelineBuildCdkLintAndBuildCodePipelineActionRole09BCFB91",
                                       "Arn"
                                     ]
@@ -1201,30 +1172,26 @@
                         "name": "Source",
                         "actions": [
                           {
-                            "name": "CodeCommitSource",
+                            "name": "GithubSource",
                             "outputArtifacts": [
                               {
-                                "name": "Artifact_Source_CodeCommitSource"
+                                "name": "Artifact_Source_GithubSource"
                               }
                             ],
                             "actionTypeId": {
                               "category": "Source",
                               "version": "1",
-                              "owner": "AWS",
-                              "provider": "CodeCommit"
+                              "owner": "ThirdParty",
+                              "provider": "GitHub"
                             },
                             "configuration": {
-                              "RepositoryName": "alf-cdk-ui",
-                              "BranchName": "master",
+                              "Owner": "mmuller88",
+                              "Repo": "alf-cdk-ui",
+                              "Branch": "master",
+                              "OAuthToken": "{{resolve:secretsmanager:alfcdk:SecretString:muller88-github-token::}}",
                               "PollForSourceChanges": false
                             },
-                            "runOrder": 1,
-                            "roleArn": {
-                              "Fn::GetAtt": [
-                                "alfcdkuipipelinestackbuildpipelineSourceCodeCommitSourceCodePipelineActionRole03C4C03F",
-                                "Arn"
-                              ]
-                            }
+                            "runOrder": 1
                           }
                         ]
                       },
@@ -1235,7 +1202,7 @@
                             "name": "CdkLintAndBuild",
                             "inputArtifacts": [
                               {
-                                "name": "Artifact_Source_CodeCommitSource"
+                                "name": "Artifact_Source_GithubSource"
                               }
                             ],
                             "outputArtifacts": [
@@ -1271,7 +1238,7 @@
                             "name": "CreateDiff",
                             "inputArtifacts": [
                               {
-                                "name": "Artifact_Source_CodeCommitSource"
+                                "name": "Artifact_Source_GithubSource"
                               }
                             ],
                             "actionTypeId": {
@@ -1298,7 +1265,7 @@
                             "name": "DeployBuild",
                             "inputArtifacts": [
                               {
-                                "name": "Artifact_Source_CodeCommitSource"
+                                "name": "Artifact_Source_GithubSource"
                               }
                             ],
                             "actionTypeId": {
@@ -1357,234 +1324,32 @@
                 "id": "Source",
                 "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/Source",
                 "children": {
-                  "CodeCommitSource": {
-                    "id": "CodeCommitSource",
-                    "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/Source/CodeCommitSource",
+                  "GithubSource": {
+                    "id": "GithubSource",
+                    "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/Source/GithubSource",
                     "children": {
-                      "CodePipelineActionRole": {
-                        "id": "CodePipelineActionRole",
-                        "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/Source/CodeCommitSource/CodePipelineActionRole",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/Source/CodeCommitSource/CodePipelineActionRole/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                              "aws:cdk:cloudformation:props": {
-                                "assumeRolePolicyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": "sts:AssumeRole",
-                                      "Effect": "Allow",
-                                      "Principal": {
-                                        "AWS": {
-                                          "Fn::Join": [
-                                            "",
-                                            [
-                                              "arn:",
-                                              {
-                                                "Ref": "AWS::Partition"
-                                              },
-                                              ":iam::981237193288:root"
-                                            ]
-                                          ]
-                                        }
-                                      }
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "tags": [
-                                  {
-                                    "key": "FrontendPipeline",
-                                    "value": "alf-cdk-ui-pipeline-stack-build"
-                                  },
-                                  {
-                                    "key": "Project",
-                                    "value": "alf-cdk-ui"
-                                  }
-                                ]
-                              }
-                            }
-                          },
-                          "DefaultPolicy": {
-                            "id": "DefaultPolicy",
-                            "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/Source/CodeCommitSource/CodePipelineActionRole/DefaultPolicy",
-                            "children": {
-                              "Resource": {
-                                "id": "Resource",
-                                "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/Source/CodeCommitSource/CodePipelineActionRole/DefaultPolicy/Resource",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                                  "aws:cdk:cloudformation:props": {
-                                    "policyDocument": {
-                                      "Statement": [
-                                        {
-                                          "Action": [
-                                            "s3:GetObject*",
-                                            "s3:GetBucket*",
-                                            "s3:List*",
-                                            "s3:DeleteObject*",
-                                            "s3:PutObject*",
-                                            "s3:Abort*"
-                                          ],
-                                          "Effect": "Allow",
-                                          "Resource": [
-                                            {
-                                              "Fn::GetAtt": [
-                                                "alfcdkuipipelinestackbuildpipelineArtifactsBucket2AB50C15",
-                                                "Arn"
-                                              ]
-                                            },
-                                            {
-                                              "Fn::Join": [
-                                                "",
-                                                [
-                                                  {
-                                                    "Fn::GetAtt": [
-                                                      "alfcdkuipipelinestackbuildpipelineArtifactsBucket2AB50C15",
-                                                      "Arn"
-                                                    ]
-                                                  },
-                                                  "/*"
-                                                ]
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "Action": [
-                                            "kms:Decrypt",
-                                            "kms:DescribeKey",
-                                            "kms:Encrypt",
-                                            "kms:ReEncrypt*",
-                                            "kms:GenerateDataKey*"
-                                          ],
-                                          "Effect": "Allow",
-                                          "Resource": {
-                                            "Fn::GetAtt": [
-                                              "alfcdkuipipelinestackbuildpipelineArtifactsBucketEncryptionKey21BA5398",
-                                              "Arn"
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "Action": [
-                                            "codecommit:GetBranch",
-                                            "codecommit:GetCommit",
-                                            "codecommit:UploadArchive",
-                                            "codecommit:GetUploadArchiveStatus",
-                                            "codecommit:CancelUploadArchive"
-                                          ],
-                                          "Effect": "Allow",
-                                          "Resource": {
-                                            "Fn::Join": [
-                                              "",
-                                              [
-                                                "arn:",
-                                                {
-                                                  "Ref": "AWS::Partition"
-                                                },
-                                                ":codecommit:us-east-1:981237193288:alf-cdk-ui"
-                                              ]
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      "Version": "2012-10-17"
-                                    },
-                                    "policyName": "alfcdkuipipelinestackbuildpipelineSourceCodeCommitSourceCodePipelineActionRoleDefaultPolicy74372C45",
-                                    "roles": [
-                                      {
-                                        "Ref": "alfcdkuipipelinestackbuildpipelineSourceCodeCommitSourceCodePipelineActionRole03C4C03F"
-                                      }
-                                    ]
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "EventsRole": {
-                "id": "EventsRole",
-                "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/EventsRole",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/EventsRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "events.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "tags": [
-                          {
-                            "key": "FrontendPipeline",
-                            "value": "alf-cdk-ui-pipeline-stack-build"
-                          },
-                          {
-                            "key": "Project",
-                            "value": "alf-cdk-ui"
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "DefaultPolicy": {
-                    "id": "DefaultPolicy",
-                    "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/EventsRole/DefaultPolicy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/EventsRole/DefaultPolicy/Resource",
+                      "WebhookResource": {
+                        "id": "WebhookResource",
+                        "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-pipeline/Source/GithubSource/WebhookResource",
                         "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:type": "AWS::CodePipeline::Webhook",
                           "aws:cdk:cloudformation:props": {
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "codepipeline:StartPipelineExecution",
-                                  "Effect": "Allow",
-                                  "Resource": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "arn:",
-                                        {
-                                          "Ref": "AWS::Partition"
-                                        },
-                                        ":codepipeline:us-east-1:981237193288:",
-                                        {
-                                          "Ref": "alfcdkuipipelinestackbuildpipeline45BCC5DF"
-                                        }
-                                      ]
-                                    ]
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
+                            "authentication": "GITHUB_HMAC",
+                            "authenticationConfiguration": {
+                              "secretToken": "{{resolve:secretsmanager:alfcdk:SecretString:muller88-github-token::}}"
                             },
-                            "policyName": "alfcdkuipipelinestackbuildpipelineEventsRoleDefaultPolicy4E72E7FF",
-                            "roles": [
+                            "filters": [
                               {
-                                "Ref": "alfcdkuipipelinestackbuildpipelineEventsRoleC0DE05C6"
+                                "jsonPath": "$.ref",
+                                "matchEquals": "refs/heads/{Branch}"
                               }
-                            ]
+                            ],
+                            "targetAction": "GithubSource",
+                            "targetPipeline": {
+                              "Ref": "alfcdkuipipelinestackbuildpipeline45BCC5DF"
+                            },
+                            "targetPipelineVersion": 1,
+                            "registerWithThirdParty": true
                           }
                         }
                       }
@@ -1881,85 +1646,6 @@
                             }
                           }
                         }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "alf-cdk-ui-pipeline-stack-build-repo": {
-            "id": "alf-cdk-ui-pipeline-stack-build-repo",
-            "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-repo",
-            "children": {
-              "alfcdkuipipelinestackbuildalfcdkuipipelinestackbuildpipelineC8B9C1CAEventRule": {
-                "id": "alfcdkuipipelinestackbuildalfcdkuipipelinestackbuildpipelineC8B9C1CAEventRule",
-                "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-repo/alfcdkuipipelinestackbuildalfcdkuipipelinestackbuildpipelineC8B9C1CAEventRule",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "alf-cdk-ui-pipeline-stack-build/alf-cdk-ui-pipeline-stack-build-repo/alfcdkuipipelinestackbuildalfcdkuipipelinestackbuildpipelineC8B9C1CAEventRule/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Events::Rule",
-                      "aws:cdk:cloudformation:props": {
-                        "eventPattern": {
-                          "source": [
-                            "aws.codecommit"
-                          ],
-                          "resources": [
-                            {
-                              "Fn::Join": [
-                                "",
-                                [
-                                  "arn:",
-                                  {
-                                    "Ref": "AWS::Partition"
-                                  },
-                                  ":codecommit:us-east-1:981237193288:alf-cdk-ui"
-                                ]
-                              ]
-                            }
-                          ],
-                          "detail-type": [
-                            "CodeCommit Repository State Change"
-                          ],
-                          "detail": {
-                            "event": [
-                              "referenceCreated",
-                              "referenceUpdated"
-                            ],
-                            "referenceName": [
-                              "master"
-                            ]
-                          }
-                        },
-                        "state": "ENABLED",
-                        "targets": [
-                          {
-                            "id": "Target0",
-                            "arn": {
-                              "Fn::Join": [
-                                "",
-                                [
-                                  "arn:",
-                                  {
-                                    "Ref": "AWS::Partition"
-                                  },
-                                  ":codepipeline:us-east-1:981237193288:",
-                                  {
-                                    "Ref": "alfcdkuipipelinestackbuildpipeline45BCC5DF"
-                                  }
-                                ]
-                              ]
-                            },
-                            "roleArn": {
-                              "Fn::GetAtt": [
-                                "alfcdkuipipelinestackbuildpipelineEventsRoleC0DE05C6",
-                                "Arn"
-                              ]
-                            }
-                          }
-                        ]
                       }
                     }
                   }

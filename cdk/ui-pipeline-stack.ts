@@ -1,20 +1,20 @@
-import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { CodeCommitSourceAction, CodeBuildAction } from '@aws-cdk/aws-codepipeline-actions';
-import { App, Stack, StackProps, Tag } from '@aws-cdk/core';
+import { CodeBuildAction, GitHubSourceAction } from '@aws-cdk/aws-codepipeline-actions';
+import { App, Stack, StackProps, Tag, SecretValue, Tags } from '@aws-cdk/core';
 import { ServicePrincipal, Role, ManagedPolicy } from '@aws-cdk/aws-iam';
 import { BuildEnvironmentVariableType, PipelineProject, BuildSpec, LinuxBuildImage } from '@aws-cdk/aws-codebuild';
-import { prodAccount } from './app';
+// import { StringParameter } from '@aws-cdk/aws-ssm';
+// import { prodAccount } from './app';
 
-// const prodAccount = {
-//   id: '981237193288',
-//   region: 'us-east-1',
-//   stage: 'prod',
-//   domainName: 'alfpro.net',
-//   subDomain: 'app',
-//   acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789',
-//   // subDomain: process.env.SUB_DOMAIN || 'app',
-// }
+const prodAccount = {
+  id: '981237193288',
+  region: 'us-east-1',
+  stage: 'prod',
+  domainName: 'alfpro.net',
+  subDomain: 'app',
+  acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789',
+  // subDomain: process.env.SUB_DOMAIN || 'app',
+}
 
 export interface UIPipelineStackProps extends StackProps {
   cdkVersion: string;
@@ -36,13 +36,11 @@ export class UIPipelineStack extends Stack {
   constructor(app: App, id: string, props: UIPipelineStackProps) {
     super(app, id, props);
 
-    Tag.add(this, 'FrontendPipeline', this.stackName);
+    Tags.of(this).add('FrontendPipeline', this.stackName);
 
     const pipeline = new Pipeline(this, `${this.stackName}-pipeline`, {
       pipelineName: `${this.stackName}-pipeline`,
     });
-
-    const code = Repository.fromRepositoryName(this, `${this.stackName}-repo`, props.repositoryName);
 
     const cdkDeployRole = new Role(this, 'createInstanceBuildRole', {
       assumedBy: new ServicePrincipal('codebuild.amazonaws.com'),   // required
@@ -154,17 +152,25 @@ export class UIPipelineStack extends Stack {
     const sourceOutput = new Artifact();
     const cdkBuildOutput = new Artifact(`${this.stackName}-cdk-build-output`);
 
-    const codeCommitSourceAction = new CodeCommitSourceAction({
-      actionName: 'CodeCommitSource',
+    // const oauth = StringParameter.valueForSecureStringParameter(
+    //   this, 'muller88-github-token', 1);
+    const oauth = SecretValue.secretsManager('alfcdk', {
+      jsonField: 'muller88-github-token',
+    });
+
+    const gitSource = new GitHubSourceAction({
+      actionName: 'GithubSource',
       branch: props.branch,
-      repository: code,
+      owner: 'mmuller88',
+      repo: 'alf-cdk-ui',
+      oauthToken: oauth,
       output: sourceOutput,
     });
 
     pipeline.addStage({
       stageName: 'Source',
       actions: [
-        codeCommitSourceAction,
+        gitSource,
       ],
     });
 
