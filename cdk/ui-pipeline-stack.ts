@@ -1,6 +1,6 @@
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { CodeBuildAction, GitHubSourceAction } from '@aws-cdk/aws-codepipeline-actions';
-import { App, Stack, StackProps, Tag, SecretValue, Tags } from '@aws-cdk/core';
+import { App, Stack, StackProps, SecretValue, Tags } from '@aws-cdk/core';
 import { ServicePrincipal, Role, ManagedPolicy } from '@aws-cdk/aws-iam';
 import { BuildEnvironmentVariableType, PipelineProject, BuildSpec, LinuxBuildImage } from '@aws-cdk/aws-codebuild';
 // import { StringParameter } from '@aws-cdk/aws-ssm';
@@ -52,47 +52,7 @@ export class UIPipelineStack extends Stack {
       ],
     });
 
-    const cdkBuild = new PipelineProject(this, `${this.stackName}-build`, {
-      projectName: `${this.stackName}-build`,
-      role: cdkDeployRole,
-      buildSpec: BuildSpec.fromObject({
-        env: { 'git-credential-helper': 'yes' },
-        version: '0.2',
-        phases: {
-          install: {
-            'runtime-versions':
-            props.runtime,
-            commands: ['npm install',
-              `npm install -g aws-cdk@${props.cdkVersion}`,
-            ],
-          },
-          build: {
-            commands: [
-              'npm run build',
-              'ls -la',
-            ],
-          },
-          post_build: {
-            commands:
-                [
-                  // 'npm run test',
-                ],
-          },
-        },
-        // artifacts: {
-        //   'base-directory': 'build',
-        //   files: [
-        //     '**/*',
-        //   ],
-        // },
-      }),
-      environment: {
-        buildImage: LinuxBuildImage.STANDARD_4_0,
-      },
-    });
-
-
-    const cdkDeployBuild = new PipelineProject(this, `${this.stackName}-deployBuild`, {
+    const cdkBuild = new PipelineProject(this, `${this.stackName}-deployBuild`, {
       projectName: `${this.stackName}-deployBuild`,
       role: cdkDeployRole,
       environmentVariables: {
@@ -181,6 +141,9 @@ export class UIPipelineStack extends Stack {
           actionName: 'CdkLintAndBuild',
           project: cdkBuild,
           input: sourceOutput,
+          environmentVariables: {
+            CDK_COMMAND: { value: 'make cdkbuild' },
+          },
           outputs: [cdkBuildOutput],
         }),
       ],
@@ -197,7 +160,7 @@ export class UIPipelineStack extends Stack {
         environmentVariables: {
           CDK_COMMAND: { value: `cd cdk && cdk diff '${this.stackName}-${account.stage}' --profile unimed-${account.stage} || true` },
         },
-        project: cdkDeployBuild,
+        project: cdkBuild,
         actionName: 'CreateDiff',
         runOrder: 1,
       }));
@@ -216,7 +179,7 @@ export class UIPipelineStack extends Stack {
           // CDK_COMMAND: { value: `cdk deploy '${this.stackName}-${account.stage}' --require-approval never --profile ${account.stage}` },
           CDK_COMMAND: { value: `make cdkdeploy${account.stage}` },
         },
-        project: cdkDeployBuild,
+        project: cdkBuild,
         actionName: 'DeployBuild',
         runOrder: 3,
       }));

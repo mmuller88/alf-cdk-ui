@@ -48,11 +48,23 @@ cdkclean:
 
 .PHONY: cdkbuild
 cdkbuild: cdkclean
-	cd cdk && npm run build
+	cd cdk && npm install && npm run build
 
 .PHONY: cdkdiff
 cdkdiff: cdkclean cdkbuild
 	cdk diff || true
+
+.PHONY: cdkdiffdev
+cdkdiffdev: cdkclean cdkbuild builddev
+	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
+
+.PHONY: cdkdiffqa
+cdkdiffqa: cdkclean cdkbuild buildqa
+	cd cdk && cdk diff '$(FUNCTION_NAME)-qa' --profile unimed-qa || true
+
+.PHONY: cdkdiffprod
+cdkdiffprod: cdkclean cdkbuild buildprod
+	cd cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
 
 .PHONY: cdkdeploydev
 cdkdeploydev: cdkclean cdkbuild builddev
