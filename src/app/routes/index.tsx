@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import asyncComponent from "../../util/asyncComponent";
+import asyncComponent from "../util/asyncComponent";
 
 // import Tests from "./tests";
 import ExtraPages from "./extraPages";
@@ -15,7 +15,7 @@ import ExtraPages from "./extraPages";
 // import ansprechpartnerExternSeiten from "./ansprechpartnerExtern";
 // import DeveloperSeiten from "./development";
 
-const Routes = ({ match }) => (
+const Routes = ({ match } : any) => (
   <Switch>
     <Route
       path={`${match.url}/welcome`}

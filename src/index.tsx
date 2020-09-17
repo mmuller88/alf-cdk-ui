@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { Switch, Route, Router } from 'react-router';
+import './app/index.css';
+import App from './app/App';
+import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 // import { ConnectedRouter } from "connected-react-router";
 // import * as serviceWorker from './serviceWorker';
