@@ -5,7 +5,7 @@ interface Props extends RouteComponentProps {      // custom properties passed t
 }
 
 class ScrollToTop extends Component<Props> {
-  componentDidUpdate(prevProps: any) {
+  componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       window.scrollTo(0, 0)
     }

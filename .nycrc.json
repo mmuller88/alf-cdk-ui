@@ -1,9 +1,0 @@
-{
-	"all": true,
-	"report-dir": "./coverage",
-	"extension": [".ts"],
-	"exclude": [
-		"tests"
-
-	]
-}

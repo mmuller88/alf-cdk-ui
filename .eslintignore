@@ -1,4 +1,0 @@
-node_modules
-build
-*.spec.ts
-src/cdk

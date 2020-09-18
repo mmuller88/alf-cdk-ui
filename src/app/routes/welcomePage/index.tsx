@@ -1,8 +1,9 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
+import {Link} from "react-router-dom";
 export interface Props {}
 
-const WelcomePage = () => {
+const WelcomePage = (Props: any) => {
   return (
     <div className="app-wrapper">
       <div style={{ maxWidth: "800px", margin: "auto", marginBottom: "20px" }}>

@@ -89,6 +89,8 @@ export class UIPipelineStack extends Stack {
           },
           build: {
             commands: [
+              'npm run build',
+              // 'cd build && npm install --only=production && cd ..',
               'ls -la',
               'echo "run: $CDK_COMMAND"',
               'eval $CDK_COMMAND',

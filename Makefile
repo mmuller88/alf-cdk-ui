@@ -16,27 +16,23 @@ prepare:
 
 .PHONY: clean
 clean:
-	cd src/cdk && rm -rf ./cdk.out ./build ./package
-
-.PHONY: install
-install:
-	npm install
+	rm -rf ./cdk.out ./build ./package
 
 .PHONY: build
-build: clean install
+build: clean
 	npm run build
 
 .PHONY: builddev
-builddev: clean install
+builddev: clean
 	npm run build-dev
 
 .PHONY: buildqa
-buildqa: clean install
+buildqa: clean
 	npm run build-qa
 
 .PHONY: buildprod
-buildprod: clean install
-	npm run build-prod
+buildprod: clean
+	npm run build
 
 .PHONY: test
 test:
@@ -44,47 +40,56 @@ test:
 
 .PHONY: package
 package:
-	cd build
+	cd build && npm install --only=production
 
 .PHONY: cdkclean
 cdkclean:
-	cd src/cdk && rm -rf ./cdk.out
+	cd cdk && rm -rf ./cdk.out
 
 .PHONY: cdkbuild
-cdkbuild: cdkclean install
-	cd src/cdk && npm run build-cdk
+cdkbuild: cdkclean
+	cd cdk && npm install && npm run build
+
+.PHONY: cdkdiff
+cdkdiff: cdkclean cdkbuild
+	cdk diff || true
 
 .PHONY: cdkdiffdev
 cdkdiffdev: cdkclean cdkbuild builddev
-	cd src/cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
+	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
 
 .PHONY: cdkdiffqa
 cdkdiffqa: cdkclean cdkbuild buildqa
-	cd src/cdk && cdk diff '$(FUNCTION_NAME)-qa' --profile unimed-qa || true
+	cd cdk && cdk diff '$(FUNCTION_NAME)-qa' --profile unimed-qa || true
 
 .PHONY: cdkdiffprod
 cdkdiffprod: cdkclean cdkbuild buildprod
-	cd src/cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile unimed-prod || true
+	cd cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
 
 .PHONY: cdkdeploydev
 cdkdeploydev: cdkclean cdkbuild builddev
-	cd src/cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
-	cd src/cdk && cdk deploy '$(FUNCTION_NAME)-dev' --profile unimed-dev --require-approval never
+	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
+	cd cdk && cdk deploy '$(FUNCTION_NAME)-dev' --profile unimed-dev --require-approval never
 
 .PHONY: cdkdeployqa
 cdkdeployqa: cdkclean cdkbuild buildqa
-	cd src/cdk && cdk diff '$(FUNCTION_NAME)-qa' --profile unimed-qa || true
-	cd src/cdk && cdk deploy '$(FUNCTION_NAME)-qa' --profile unimed-qa --require-approval never
+	cd cdk && cdk diff '$(FUNCTION_NAME)-qa' --profile unimed-qa || true
+	cd cdk && cdk deploy '$(FUNCTION_NAME)-qa' --profile unimed-qa --require-approval never
 
 .PHONY: cdkdeployprod
 cdkdeployprod: cdkclean cdkbuild buildprod
-	cd src/cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile unimed-prod || true
-	cd src/cdk && cdk deploy '$(FUNCTION_NAME)-prod' --profile unimed-prod --require-approval never
+	cd cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
+	cd cdk && cdk deploy '$(FUNCTION_NAME)-prod' --profile damadden88 --require-approval never
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
-	cd src/cdk && cdk diff "$(FUNCTION_NAME)-pipeline-stack-build" || true
+	cdk diff "$(FUNCTION_NAME)-pipeline-stack-build" || true
 
 .PHONY: cdkpipelinedeploy
 cdkpipelinedeploy: check-env cdkclean cdkbuild
-	cd src/cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build" --profile unimed-build --require-approval never
+	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 --require-approval never
+
+.PHONY: reload-infra
+reload-infra:
+	rm -rf node_modules/infrastructure-aws && npm i
+

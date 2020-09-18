@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
-import { Tags, App } from '@aws-cdk/core';
-import { name, devDependencies } from '../../package.json';
-import { UIStack, UIStackProps } from './ui-stack';
-import { UIPipelineStack, UIPipelineStackProps } from './ui-pipeline-stack';
+import { Tag, App } from '@aws-cdk/core';
+import { UIStackProps, UIStack } from './ui-stack';
+import { name, devDependencies } from './package.json';
+import { UIPipelineStackProps, UIPipelineStack } from './ui-pipeline-stack';
 // import { FrontendPipelineStackProps, FrontendPipelineStack } from './ui-pipeline-stack';
 
 const app = new App();
-Tags.of(app).add('Project', name);
+Tag.add(app, 'Project', name);
 
 const config = {
   // appVersion: version,
