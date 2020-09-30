@@ -6,7 +6,7 @@ import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth }from 'aws-amplify';
 import aws_exports from './aws-exports';
 
-import { Configuration, InstancesConfApi } from '@martinmuellerdev/alf-cdk-typescript-client';
+// import { Configuration, InstancesConfApi } from '@martinmuellerdev/alf-cdk-typescript-client';
 
 Amplify.configure(aws_exports);
 
@@ -33,24 +33,24 @@ class App extends Component {
       console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
       console.log(`myJwt: ${jwt}`)
 
-      const config = new Configuration({
-        accessToken: jwt,
-        basePath: 'https://api.alfpro.net'
-      });
+      // const config = new Configuration({
+      //   accessToken: jwt,
+      //   basePath: 'https://api.alfpro.net'
+      // });
 
-      const api = new InstancesConfApi(config);
+      // const api = new InstancesConfApi(config);
 
-      api.getInstanceConfs(undefined, {
-        headers: {
-          Authorization: jwt
-        }
-      }).then(succeeded => {
-        console.log(`getInstanceConfs succeeded`);
-        succeeded.data.forEach(instanceConf => {
-          // instanceConf.alfInstanceId
-          console.log(`instanceConf: ${JSON.stringify(instanceConf)}`)
-        })
-      })
+      // api.getInstanceConfs(undefined, {
+      //   headers: {
+      //     Authorization: jwt
+      //   }
+      // }).then(succeeded => {
+      //   console.log(`getInstanceConfs succeeded`);
+      //   succeeded.data.forEach(instanceConf => {
+      //     // instanceConf.alfInstanceId
+      //     console.log(`instanceConf: ${JSON.stringify(instanceConf)}`)
+      //   })
+      // })
     })
 
 

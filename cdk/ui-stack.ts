@@ -1,4 +1,4 @@
-import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
+import { StackProps, Construct, CfnOutput, Stack } from '@aws-cdk/core';
 import { AutoDeleteBucket } from '@mobileposse/auto-delete-bucket'
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 import {
@@ -27,7 +27,9 @@ export interface UIStackProps extends StackProps {
   // appVersion: string;
 }
 
-export class UIStack extends core.Stack {
+export class UIStack extends Stack {
+
+  public readonly domainName: CfnOutput;
 
   constructor(scope: Construct, id: string, props: UIStackProps) {
     super(scope, id, props);
@@ -89,7 +91,7 @@ export class UIStack extends core.Stack {
       zone
     });
 
-    new CfnOutput(this, 'route', {
+    this.domainName = new CfnOutput(this, 'route', {
       value: route.domainName,
     });
   }

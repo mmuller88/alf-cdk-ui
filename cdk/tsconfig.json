@@ -36,6 +36,7 @@
     "inlineSources": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
+    "outDir": "build/",
     "typeRoots": [
       "./node_modules/@types"
     ]

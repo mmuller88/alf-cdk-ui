@@ -4,12 +4,13 @@ import { Tag, App } from '@aws-cdk/core';
 import { UIStackProps, UIStack } from './ui-stack';
 import { name, devDependencies } from './package.json';
 import { UIPipelineStackProps, UIPipelineStack } from './ui-pipeline-stack';
+import { prodAccount } from './accountConfig';
 // import { FrontendPipelineStackProps, FrontendPipelineStack } from './ui-pipeline-stack';
 
 const app = new App();
 Tag.add(app, 'Project', name);
 
-const config = {
+export const config = {
   // appVersion: version,
   // deployedAt: new Date().toISOString(),
   // deployBucketName: 'app.uniflow-dev.unimed.de',
@@ -29,17 +30,6 @@ console.info(`Common config: ${JSON.stringify(config, null, 2)}`);
 //   // acmCertRef: 'arn:aws:acm:us-east-1:495958373937:certificate/5881180e-a338-4b6e-a189-3fc6abf779c0',
 //   // subDomain: process.env.SUB_DOMAIN || 'app',
 // }
-
-const prodAccount = {
-  id: '981237193288',
-  region: 'us-east-1',
-  stage: 'prod',
-  domainName: 'alfpro.net',
-  subDomain: 'app',
-  acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789',
-  // subDomain: process.env.SUB_DOMAIN || 'app',
-}
-
 
 for(const account of [prodAccount]) {
   const uiStackProps : UIStackProps = {

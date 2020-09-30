@@ -14,24 +14,24 @@ endif
 prepare:
 	echo "not implemented"
 
+.PHONY: install
+install:
+	npm install && cd cdk && npm install
+
 .PHONY: clean
 clean:
-	rm -rf ./cdk.out ./build ./package
+	rm -rf ./cdk.out ./build ./package ./cdk/build
 
 .PHONY: build
-build: clean
+build: clean install
 	npm run build
 
 .PHONY: builddev
-builddev: clean
+builddev: clean install
 	npm run build-dev
 
-.PHONY: buildqa
-buildqa: clean
-	npm run build-qa
-
 .PHONY: buildprod
-buildprod: clean
+buildprod: clean install
 	npm run build
 
 .PHONY: test
@@ -44,11 +44,11 @@ package:
 
 .PHONY: cdkclean
 cdkclean:
-	cd cdk && rm -rf ./cdk.out
+	cd cdk && rm -rf ./cdk.out ./build
 
 .PHONY: cdkbuild
-cdkbuild: cdkclean
-	cd cdk && npm install && npm run build
+cdkbuild: cdkclean install
+	cd cdk && npm run build
 
 .PHONY: cdkdiff
 cdkdiff: cdkclean cdkbuild
@@ -58,10 +58,6 @@ cdkdiff: cdkclean cdkbuild
 cdkdiffdev: cdkclean cdkbuild builddev
 	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
 
-.PHONY: cdkdiffqa
-cdkdiffqa: cdkclean cdkbuild buildqa
-	cd cdk && cdk diff '$(FUNCTION_NAME)-qa' --profile unimed-qa || true
-
 .PHONY: cdkdiffprod
 cdkdiffprod: cdkclean cdkbuild buildprod
 	cd cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
@@ -70,11 +66,6 @@ cdkdiffprod: cdkclean cdkbuild buildprod
 cdkdeploydev: cdkclean cdkbuild builddev
 	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
 	cd cdk && cdk deploy '$(FUNCTION_NAME)-dev' --profile unimed-dev --require-approval never
-
-.PHONY: cdkdeployqa
-cdkdeployqa: cdkclean cdkbuild buildqa
-	cd cdk && cdk diff '$(FUNCTION_NAME)-qa' --profile unimed-qa || true
-	cd cdk && cdk deploy '$(FUNCTION_NAME)-qa' --profile unimed-qa --require-approval never
 
 .PHONY: cdkdeployprod
 cdkdeployprod: cdkclean cdkbuild buildprod
