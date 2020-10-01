@@ -8,3 +8,13 @@ export const prodAccount = {
   acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789',
   // subDomain: process.env.SUB_DOMAIN || 'app',
 }
+
+export const devAccount = {
+  id: '981237193288',
+  region: 'eu-central-1',
+  stage: 'dev',
+  domainName: 'dev.alfpro.net',
+  subDomain: 'app',
+  acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789',
+  // subDomain: process.env.SUB_DOMAIN || 'app',
+}

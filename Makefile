@@ -78,13 +78,13 @@ cdksynthprod: cdkclean cdkbuild buildprod
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
-	cdk diff "$(FUNCTION_NAME)-pipeline-stack-build" || true
+	cdk diff "$(FUNCTION_NAME)-pipeline-stack2-build" || true
 
 .PHONY: cdkpipelinedeploy
 cdkpipelinedeploy: check-env cdkclean cdkbuild
-	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 --require-approval never
+	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack2-build" --profile damadden88 --require-approval never
 
 .PHONY: bootstrap
 bootstrap:
 	cd cdk && cdk bootstrap --profile damadden88 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://981237193288/us-east-1
-
+	cd cdk && cdk bootstrap --profile damadden88 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://981237193288/eu-central-1

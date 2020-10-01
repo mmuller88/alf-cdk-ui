@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
 import { Tag, App } from '@aws-cdk/core';
 import { UIStackProps, UIStack } from './ui-stack';
 import { name, devDependencies } from './package.json';
@@ -67,6 +66,7 @@ const uiPipelineStackProps: UIPipelineStackProps = {
 };
 console.info(`uiPipelineStackProps: ${JSON.stringify(uiPipelineStackProps, null, 2)}`);
 
-new UIPipelineStack(app, `${config.repositoryName}-pipeline-stack-build`, uiPipelineStackProps);
+// tslint:disable-next-line: no-unused-expression
+new UIPipelineStack(app, `${config.repositoryName}-pipeline-stack2-build`, uiPipelineStackProps);
 
 app.synth();
