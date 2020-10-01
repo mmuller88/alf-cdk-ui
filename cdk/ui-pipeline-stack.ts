@@ -80,6 +80,7 @@ export class UIPipelineStack extends Stack {
       synthAction: SimpleSynthAction.standardNpmSynth({
         sourceArtifact,
         cloudAssemblyArtifact,
+        installCommand: `make install && npm install -g aws-cdk@${props.cdkVersion}`,
         synthCommand: 'make cdksynthprod',
         // We need a build step to compile the TypeScript Lambda
         buildCommand: 'make build && make cdkbuild'
