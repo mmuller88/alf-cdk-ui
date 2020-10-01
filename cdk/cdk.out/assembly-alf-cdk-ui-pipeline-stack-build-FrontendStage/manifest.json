@@ -1,0 +1,635 @@
+{
+  "version": "6.0.0",
+  "artifacts": {
+    "alfcdkuipipelinestackbuildFrontendStagealfcdkuiprodB4D519B4.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "alfcdkuipipelinestackbuildFrontendStagealfcdkuiprodB4D519B4.assets.json",
+        "requiresBootstrapStackVersion": 4
+      }
+    },
+    "alfcdkuipipelinestackbuildFrontendStagealfcdkuiprodB4D519B4": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://981237193288/us-east-1",
+      "properties": {
+        "templateFile": "alfcdkuipipelinestackbuildFrontendStagealfcdkuiprodB4D519B4.template.json",
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::981237193288:role/cdk-hnb659fds-deploy-role-981237193288-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::981237193288:role/cdk-hnb659fds-cfn-exec-role-981237193288-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-981237193288-us-east-1/3372892b19843f948ea54e0926c735aed47f5959ef8fd0616a6874a7515cb989",
+        "requiresBootstrapStackVersion": 4,
+        "additionalDependencies": [
+          "alfcdkuipipelinestackbuildFrontendStagealfcdkuiprodB4D519B4.assets"
+        ],
+        "stackName": "FrontendStage-alf-cdk-ui-prod"
+      },
+      "dependencies": [
+        "alfcdkuipipelinestackbuildFrontendStagealfcdkuiprodB4D519B4.assets"
+      ],
+      "metadata": {
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/alfpro.net/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alfpronetD87BCA51",
+            "trace": [
+              "new Bucket (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:1207:22)",
+              "new AutoDeleteBucket (/home/martin/git/alf-cdk-ui/cdk/node_modules/@mobileposse/auto-delete-bucket/src/resource/auto-delete-bucket.ts:12:5)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:15:24)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/alfpro.net/AutoBucket/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alfpronetAutoBucket76F727AA",
+            "trace": [
+              "new CustomResource (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/custom-resource.ts:115:21)",
+              "new CustomResource (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-cloudformation/lib/custom-resource.ts:155:5)",
+              "new AutoDeleteBucket (/home/martin/git/alf-cdk-ui/cdk/node_modules/@mobileposse/auto-delete-bucket/src/resource/auto-delete-bucket.ts:31:5)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:15:24)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/alfpro.net/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alfpronetPolicy26618E2C",
+            "trace": [
+              "new BucketPolicy (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3/lib/bucket-policy.ts:42:21)",
+              "AutoDeleteBucket.addToResourcePolicy (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:455:21)",
+              "Function.addToPrincipalOrResource (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/grant.ts:147:45)",
+              "AutoDeleteBucket.grant (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:651:27)",
+              "AutoDeleteBucket.grantRead (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:523:17)",
+              "CloudFrontWebDistribution.toOriginProperty (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-cloudfront/lib/web_distribution.ts:1021:52)",
+              "new CloudFrontWebDistribution (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-cloudfront/lib/web_distribution.ts:784:35)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:49:40)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AutoBucket7677dc81117d41c0b75bdb11cb84bb70ServiceRole2F2A10DB",
+            "trace": [
+              "new Role (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
+              "new Function (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/function.ts:539:31)",
+              "SingletonFunction.ensureLambda (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/singleton-lambda.ts:119:12)",
+              "new SingletonFunction (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/singleton-lambda.ts:55:32)",
+              "new AutoDeleteBucket (/home/martin/git/alf-cdk-ui/cdk/node_modules/@mobileposse/auto-delete-bucket/src/resource/auto-delete-bucket.ts:17:20)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:15:24)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AutoBucket7677dc81117d41c0b75bdb11cb84bb70ServiceRoleDefaultPolicy57248D6C",
+            "trace": [
+              "new Policy (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/policy.ts:141:22)",
+              "Role.addToPrincipalPolicy (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
+              "Function.addToPrincipal (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/grant.ts:168:61)",
+              "Function.addToPrincipalOrResource (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/grant.ts:119:26)",
+              "AutoDeleteBucket.grant (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:651:27)",
+              "AutoDeleteBucket.grantReadWrite (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:582:17)",
+              "new AutoDeleteBucket (/home/martin/git/alf-cdk-ui/cdk/node_modules/@mobileposse/auto-delete-bucket/src/resource/auto-delete-bucket.ts:29:10)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:15:24)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AutoBucket7677dc81117d41c0b75bdb11cb84bb70DC15ED41",
+            "trace": [
+              "new Function (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/function.ts:593:35)",
+              "SingletonFunction.ensureLambda (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/singleton-lambda.ts:119:12)",
+              "new SingletonFunction (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/singleton-lambda.ts:55:32)",
+              "new AutoDeleteBucket (/home/martin/git/alf-cdk-ui/cdk/node_modules/@mobileposse/auto-delete-bucket/src/resource/auto-delete-bucket.ts:17:20)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:15:24)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/OAI/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OAIE1EFC67F",
+            "trace": [
+              "new OriginAccessIdentity (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-cloudfront/lib/origin_access_identity.ts:112:21)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:21:31)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/app.alfpro.net-cfd/CFDistribution": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "appalfpronetcfdCFDistribution606E599F",
+            "trace": [
+              "new CloudFrontWebDistribution (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-cloudfront/lib/web_distribution.ts:921:26)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:49:40)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/DeployApp-Thu Oct 01 2020 08:30:48 GMT+0200 (Central European Summer Time)/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DeployAppThuOct012020083048GMT0200CentralEuropeanSummerTimeCustomResource2E13D09A",
+            "trace": [
+              "new CustomResource (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/custom-resource.ts:115:21)",
+              "new BucketDeployment (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3-deployment/lib/bucket-deployment.ts:201:5)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:51:9)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+            "trace": [
+              "new Role (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
+              "new Function (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/function.ts:539:31)",
+              "SingletonFunction.ensureLambda (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/singleton-lambda.ts:119:12)",
+              "new SingletonFunction (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/singleton-lambda.ts:55:32)",
+              "new BucketDeployment (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3-deployment/lib/bucket-deployment.ts:176:21)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:51:9)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+            "trace": [
+              "new Policy (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/policy.ts:141:22)",
+              "Role.addToPrincipalPolicy (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
+              "Function.addToPrincipal (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/grant.ts:168:61)",
+              "Function.addToPrincipalOrResource (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-iam/lib/grant.ts:119:26)",
+              "Import.grant (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:651:27)",
+              "Import.grantRead (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:523:17)",
+              "Asset.grantRead (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3-assets/lib/asset.ts:198:17)",
+              "Object.bind (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3-deployment/lib/source.ts:90:15)",
+              "BucketDeployment.props.sources.map (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3-deployment/lib/bucket-deployment.ts:190:83)",
+              "Array.map (<anonymous>)",
+              "new BucketDeployment (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3-deployment/lib/bucket-deployment.ts:190:51)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:51:9)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
+            "trace": [
+              "new Function (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/function.ts:593:35)",
+              "SingletonFunction.ensureLambda (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/singleton-lambda.ts:119:12)",
+              "new SingletonFunction (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-lambda/lib/singleton-lambda.ts:55:32)",
+              "new BucketDeployment (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-s3-deployment/lib/bucket-deployment.ts:176:21)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:51:9)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/SiteAliasRecord/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteAliasRecord3C0AF5BF",
+            "trace": [
+              "new RecordSet (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-route53/lib/record-set.ts:209:23)",
+              "new ARecord (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-route53/lib/record-set.ts:248:5)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:58:23)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/AWSCloudFrontPartitionHostedZoneIdMap": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AWSCloudFrontPartitionHostedZoneIdMap",
+            "trace": [
+              "Function.getHostedZoneId (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-route53-targets/lib/cloudfront-target.ts:26:7)",
+              "CloudFrontTarget.bind (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-route53-targets/lib/cloudfront-target.ts:45:38)",
+              "new RecordSet (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-route53/lib/record-set.ts:214:73)",
+              "new ARecord (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/aws-route53/lib/record-set.ts:248:5)",
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:58:23)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/route": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "route",
+            "trace": [
+              "new UIStack (/home/martin/git/alf-cdk-ui/cdk/ui-stack.ts:63:27)",
+              "new FrontendStage (/home/martin/git/alf-cdk-ui/cdk/frontend-stage.ts:26:25)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:70:35)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:51:24)",
+              "construct (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:140:5)",
+              "visit (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:200:5)",
+              "visit (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:196:5)",
+              "injectMetadataResources (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:131:3)",
+              "Object.synthesize (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "FrontendStage.synth (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/stage.ts:174:23)",
+              "CdkStage.addApplication (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/pipelines/lib/stage.ts:73:26)",
+              "CdkPipeline.addApplicationStage (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:230:11)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:76:43)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:506:17)",
+              "DefaultStackSynthesizer.synthesize (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:336:7)",
+              "construct (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:29)",
+              "visit (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:200:5)",
+              "visit (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:196:5)",
+              "synthesizeTree (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:150:3)",
+              "Object.synthesize (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "FrontendStage.synth (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/stage.ts:174:23)",
+              "CdkStage.addApplication (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/pipelines/lib/stage.ts:73:26)",
+              "CdkPipeline.addApplicationStage (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:230:11)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:76:43)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ],
+        "/alf-cdk-ui-pipeline-stack-build/FrontendStage/alf-cdk-ui-prod/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:516:3)",
+              "DefaultStackSynthesizer.synthesize (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:336:7)",
+              "construct (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:29)",
+              "visit (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:200:5)",
+              "visit (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:196:5)",
+              "synthesizeTree (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:150:3)",
+              "Object.synthesize (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "FrontendStage.synth (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/core/lib/stage.ts:174:23)",
+              "CdkStage.addApplication (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/pipelines/lib/stage.ts:73:26)",
+              "CdkPipeline.addApplicationStage (/home/martin/git/alf-cdk-ui/cdk/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:230:11)",
+              "new UIPipelineStack (/home/martin/git/alf-cdk-ui/cdk/ui-pipeline-stack.ts:76:43)",
+              "Object.<anonymous> (/home/martin/git/alf-cdk-ui/cdk/app.ts:59:1)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Module.m._compile (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1043:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Object.require.extensions.(anonymous function) [as .ts] (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/index.ts:1046:12)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "main (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:225:14)",
+              "Object.<anonymous> (/home/martin/.npm/_npx/179160/lib/node_modules/ts-node/src/bin.ts:512:3)",
+              "Module._compile (internal/modules/cjs/loader.js:778:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)",
+              "Module.load (internal/modules/cjs/loader.js:653:32)",
+              "tryModuleLoad (internal/modules/cjs/loader.js:593:12)",
+              "Function.Module._load (internal/modules/cjs/loader.js:585:3)",
+              "Function.Module.runMain (internal/modules/cjs/loader.js:831:12)",
+              "findNodeScript.then.existing (/usr/local/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

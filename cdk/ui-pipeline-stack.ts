@@ -80,9 +80,9 @@ export class UIPipelineStack extends Stack {
       synthAction: SimpleSynthAction.standardNpmSynth({
         sourceArtifact,
         cloudAssemblyArtifact,
-
+        synthCommand: 'make cdksynthprod',
         // We need a build step to compile the TypeScript Lambda
-        buildCommand: 'npm run build'
+        buildCommand: 'make build && make cdkbuild'
       }),
     });
 

@@ -72,6 +72,10 @@ cdkdeployprod: cdkclean cdkbuild buildprod
 	cd cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
 	cd cdk && cdk deploy '$(FUNCTION_NAME)-prod' --profile damadden88 --require-approval never
 
+.PHONY: cdksynthprod
+cdksynthprod: cdkclean cdkbuild buildprod
+	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88
+
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
 	cdk diff "$(FUNCTION_NAME)-pipeline-stack-build" || true
