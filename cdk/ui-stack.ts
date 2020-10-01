@@ -8,7 +8,7 @@ import {
   SSLMethod,
   SecurityPolicyProtocol
 } from '@aws-cdk/aws-cloudfront';
-import { ARecord, AddressRecordTarget, HostedZone } from '@aws-cdk/aws-route53';
+import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
 import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
 // @ts-ignore
 import codedeploy = require('@aws-cdk/aws-codedeploy');
@@ -77,6 +77,7 @@ export class UIStack extends Stack {
       cloudFrontDistProps
     );
 
+    // tslint:disable-next-line: no-unused-expression
     new BucketDeployment(this, `DeployApp-${new Date().toString()}`, {
       sources: [Source.asset("../build")],
       destinationBucket: bucket,
@@ -87,7 +88,7 @@ export class UIStack extends Stack {
     const zone = HostedZone.fromLookup(this, 'Zone', { domainName: props.domainName });
     const route = new ARecord(this, 'SiteAliasRecord', {
       recordName: `${props.subDomain}.${props.domainName}`,
-      target: AddressRecordTarget.fromAlias(new CloudFrontTarget(cloudfrontDistribution)),
+      target: RecordTarget.fromAlias(new CloudFrontTarget(cloudfrontDistribution)),
       zone
     });
 

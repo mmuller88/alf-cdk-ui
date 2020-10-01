@@ -80,7 +80,7 @@ cdkpipelinediff: check-env cdkclean cdkbuild
 cdkpipelinedeploy: check-env cdkclean cdkbuild
 	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 --require-approval never
 
-.PHONY: reload-infra
-reload-infra:
-	rm -rf node_modules/infrastructure-aws && npm i
+.PHONY: bootstrap
+bootstrap:
+	cd cdk && cdk bootstrap --profile damadden88 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://981237193288/us-east-1
 
