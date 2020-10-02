@@ -74,7 +74,7 @@ cdkdeployprod: cdkclean cdkbuild buildprod
 
 .PHONY: cdksynthprod
 cdksynthprod: cdkclean cdkbuild buildprod
-	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88 && cp cdk.out ../cdk.out
+	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88 && cp -r cdk.out ../cdk.out
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
