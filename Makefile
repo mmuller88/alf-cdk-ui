@@ -20,7 +20,7 @@ install:
 
 .PHONY: clean
 clean:
-	rm -rf ./cdk.out ./build ./package ./cdk/build
+	rm -rf ./cdk.out ./cdk/cdk.out ./build ./package ./cdk/build
 
 .PHONY: build
 build: clean install
@@ -44,7 +44,7 @@ package:
 
 .PHONY: cdkclean
 cdkclean:
-	cd cdk && rm -rf ./cdk.out ./build
+	rm -rf ./cdk.out && cd cdk && rm -rf ./cdk.out ./build
 
 .PHONY: cdkbuild
 cdkbuild: cdkclean install
@@ -74,7 +74,7 @@ cdkdeployprod: cdkclean cdkbuild buildprod
 
 .PHONY: cdksynthprod
 cdksynthprod: cdkclean cdkbuild buildprod
-	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88 && cp -r cdk.out ../cdk.out
+	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88 && mv cdk.out ../cdk.out
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
