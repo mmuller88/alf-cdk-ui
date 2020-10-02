@@ -21,6 +21,7 @@ export class FrontendStage extends Stage {
       domainName: prodAccount.domainName,
       acmCertRef: prodAccount.acmCertRef,
       subDomain: prodAccount.subDomain,
+      stackName: `${config.repositoryName}-${prodAccount.stage}`,
       // subDomain: account.subDomain,
     }
     console.info(`${prodAccount.stage} UIStackProps: ${JSON.stringify(uiStackProps, null, 2)}`);
