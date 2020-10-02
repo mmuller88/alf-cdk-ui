@@ -87,4 +87,4 @@ cdkpipelinedeploy: check-env cdkclean cdkbuild
 .PHONY: bootstrap
 bootstrap:
 	cd cdk && cdk bootstrap --profile damadden88 --trust 981237193288 --force --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://981237193288/us-east-1
-	cd cdk && cdk bootstrap --profile damadden88 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://981237193288/eu-central-1
+	cd cdk && cdk bootstrap --profile damadden88 --trust 981237193288 --force --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://981237193288/eu-central-1

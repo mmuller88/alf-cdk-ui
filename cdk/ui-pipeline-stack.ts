@@ -3,7 +3,7 @@ import { GitHubSourceAction } from '@aws-cdk/aws-codepipeline-actions';
 import { App, Stack, StackProps, SecretValue, Tags } from '@aws-cdk/core';
 // import { ServicePrincipal, Role, ManagedPolicy } from '@aws-cdk/aws-iam';
 // import { BuildEnvironmentVariableType, PipelineProject, BuildSpec, LinuxBuildImage } from '@aws-cdk/aws-codebuild';
-import { prodAccount } from './accountConfig';
+import { devAccount, prodAccount } from './accountConfig';
 import { CdkPipeline, ShellScriptAction, SimpleSynthAction } from "@aws-cdk/pipelines";
 import { FrontendStage } from './frontend-stage';
 import { AutoDeleteBucket } from '@mobileposse/auto-delete-bucket';
@@ -69,7 +69,7 @@ export class UIPipelineStack extends Stack {
     });
 
     // todo: add devAccount later
-    for (const account of [prodAccount]) {
+    for (const account of [devAccount, prodAccount]) {
       const uiStackProps : UIStackProps = {
         stage: account.stage,
         domainName: account.domainName,
@@ -82,14 +82,15 @@ export class UIPipelineStack extends Stack {
       }
       console.info(`${account.stage} UIStackProps: ${JSON.stringify(uiStackProps, null, 2)}`);
 
-      const frontendStage = new FrontendStage(this, 'FrontendStage', {
+      const frontendStage = new FrontendStage(this, `FrontendStage-${account.stage}`, {
         stackProps: uiStackProps,
         env: {
           account: account.id,
           region: account.region,
         }
       });
-      const preprodStage = cdkPipeline.addApplicationStage(frontendStage);
+
+      const preprodStage = cdkPipeline.addApplicationStage(frontendStage, { manualApprovals: true });
       preprodStage.addActions(new ShellScriptAction({
         actionName: 'TestFrontend',
         useOutputs: {
