@@ -1,18 +1,14 @@
 #!/usr/bin/env node
-import { Tag, App } from '@aws-cdk/core';
+import { App, Tags } from '@aws-cdk/core';
 import { UIStackProps, UIStack } from './ui-stack';
 import { name, devDependencies } from './package.json';
 import { UIPipelineStackProps, UIPipelineStack } from './ui-pipeline-stack';
 import { prodAccount } from './accountConfig';
-// import { FrontendPipelineStackProps, FrontendPipelineStack } from './ui-pipeline-stack';
 
 const app = new App();
-Tag.add(app, 'Project', name);
+Tags.of(app).add('Project', name);
 
 export const config = {
-  // appVersion: version,
-  // deployedAt: new Date().toISOString(),
-  // deployBucketName: 'app.uniflow-dev.unimed.de',
   repositoryName: name,
   branch: 'master',
   runtime: { nodejs: 12 },
@@ -20,15 +16,6 @@ export const config = {
 };
 
 console.info(`Common config: ${JSON.stringify(config, null, 2)}`);
-
-// const testAccount = {
-//   id: '',
-//   region: '',
-//   stage: 'test',
-//   // domainName: `uniflow-${devAccount.stage}.unimed.de`,
-//   // acmCertRef: 'arn:aws:acm:us-east-1:495958373937:certificate/5881180e-a338-4b6e-a189-3fc6abf779c0',
-//   // subDomain: process.env.SUB_DOMAIN || 'app',
-// }
 
 for(const account of [prodAccount]) {
   const uiStackProps : UIStackProps = {
@@ -40,6 +27,8 @@ for(const account of [prodAccount]) {
     domainName: account.domainName,
     acmCertRef: account.acmCertRef,
     subDomain: account.subDomain,
+    hostedZoneId: account.hostedZoneId,
+    zoneName: account.zoneName,
     // subDomain: account.subDomain,
   }
   console.info(`${account.stage} UIStackProps: ${JSON.stringify(uiStackProps, null, 2)}`);

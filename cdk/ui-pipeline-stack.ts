@@ -7,6 +7,7 @@ import { prodAccount } from './accountConfig';
 import { CdkPipeline, ShellScriptAction, SimpleSynthAction } from "@aws-cdk/pipelines";
 import { FrontendStage } from './frontend-stage';
 import { AutoDeleteBucket } from '@mobileposse/auto-delete-bucket';
+import { UIStackProps } from './ui-stack';
 
 
 export interface UIPipelineStackProps extends StackProps {
@@ -60,7 +61,7 @@ export class UIPipelineStack extends Stack {
         sourceArtifact,
         cloudAssemblyArtifact,
         installCommand: `npm install -g aws-cdk@${props.cdkVersion}`,
-        synthCommand: 'make cdksynthprod && echo $?',
+        synthCommand: 'make cdksynthprod',
         // subdirectory: 'cdk',
         // We need a build step to compile the TypeScript Lambda
         // buildCommand: 'make build && make cdkbuild',
@@ -69,11 +70,24 @@ export class UIPipelineStack extends Stack {
 
     // todo: add devAccount later
     for (const account of [prodAccount]) {
+      const uiStackProps : UIStackProps = {
+        stage: account.stage,
+        domainName: account.domainName,
+        acmCertRef: account.acmCertRef,
+        subDomain: account.subDomain,
+        stackName: `${props.repositoryName}-${account.stage}`,
+        hostedZoneId: account.hostedZoneId,
+        zoneName: account.zoneName,
+        // subDomain: account.subDomain,
+      }
+      console.info(`${account.stage} UIStackProps: ${JSON.stringify(uiStackProps, null, 2)}`);
+
       const frontendStage = new FrontendStage(this, 'FrontendStage', {
+        stackProps: uiStackProps,
         env: {
           account: account.id,
           region: account.region,
-        },
+        }
       });
       const preprodStage = cdkPipeline.addApplicationStage(frontendStage);
       preprodStage.addActions(new ShellScriptAction({

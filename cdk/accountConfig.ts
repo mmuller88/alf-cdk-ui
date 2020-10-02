@@ -6,6 +6,8 @@ export const prodAccount = {
   domainName: 'alfpro.net',
   subDomain: 'app',
   acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789',
+  hostedZoneId: 'Z05027561FL1C7WWU4SX4',
+  zoneName: 'alfpro.net.',
   // subDomain: process.env.SUB_DOMAIN || 'app',
 }
 
@@ -16,5 +18,6 @@ export const devAccount = {
   domainName: 'dev.alfpro.net',
   subDomain: 'app',
   acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/62010fca-125e-4780-8d71-7d745ff91789',
-  // subDomain: process.env.SUB_DOMAIN || 'app',
+  hostedZoneId: 'Z05027561FL1C7WWU4SX4',
+  zoneName: 'alfpro.net.',
 }

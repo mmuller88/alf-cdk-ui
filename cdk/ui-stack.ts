@@ -23,6 +23,8 @@ export interface UIStackProps extends StackProps {
   acmCertRef: string;
   domainName: string;
   subDomain: string;
+  hostedZoneId: string;
+  zoneName: string;
   // deployedAt: string;
   // appVersion: string;
 }
@@ -85,11 +87,11 @@ export class UIStack extends Stack {
       distributionPaths: ['/'],
     });
 
-    const zone = HostedZone.fromLookup(this, 'Zone', { domainName: props.domainName });
+    // const zone = HostedZone.fromLookup(this, 'Zone', { domainName: props.domainName });
     const route = new ARecord(this, 'SiteAliasRecord', {
       recordName: `${props.subDomain}.${props.domainName}`,
       target: RecordTarget.fromAlias(new CloudFrontTarget(cloudfrontDistribution)),
-      zone
+      zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', { zoneName: props.zoneName, hostedZoneId: props.hostedZoneId }),
     });
 
     this.domainName = new CfnOutput(this, 'route', {
