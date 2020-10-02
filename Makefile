@@ -74,15 +74,15 @@ cdkdeployprod: cdkclean cdkbuild buildprod
 
 .PHONY: cdksynthprod
 cdksynthprod: cdkclean cdkbuild buildprod
-	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --context @aws-cdk/core:newStyleStackSynthesis=1 --context aws-cdk:enableDiffNoFail=1 --profile damadden88
+	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88 && cp cdk.out ../cdk.out
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
-	cdk diff "$(FUNCTION_NAME)-pipeline-stack3-build" || true
+	cdk diff "$(FUNCTION_NAME)-pipeline-stack-build" || true
 
 .PHONY: cdkpipelinedeploy
 cdkpipelinedeploy: check-env cdkclean cdkbuild
-	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack3-build"  --profile damadden88 --require-approval never
+	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build"  --profile damadden88 --require-approval never
 
 .PHONY: bootstrap
 bootstrap:
