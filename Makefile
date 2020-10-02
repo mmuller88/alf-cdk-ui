@@ -65,26 +65,26 @@ cdkdiffprod: cdkclean cdkbuild buildprod
 .PHONY: cdkdeploydev
 cdkdeploydev: cdkclean cdkbuild builddev
 	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
-	cd cdk && cdk deploy '$(FUNCTION_NAME)-dev' --profile unimed-dev --require-approval never
+	cd cdk && cdk deploy '$(FUNCTION_NAME)-dev' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile unimed-dev --require-approval never
 
 .PHONY: cdkdeployprod
 cdkdeployprod: cdkclean cdkbuild buildprod
 	cd cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
-	cd cdk && cdk deploy '$(FUNCTION_NAME)-prod' --profile damadden88 --require-approval never
+	cd cdk && cdk deploy '$(FUNCTION_NAME)-prod' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile damadden88 --require-approval never
 
 .PHONY: cdksynthprod
 cdksynthprod: cdkclean cdkbuild buildprod
-	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88
+	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile damadden88
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
-	cdk diff "$(FUNCTION_NAME)-pipeline-stack2-build" || true
+	cdk diff "$(FUNCTION_NAME)-pipeline-stack3-build" || true
 
 .PHONY: cdkpipelinedeploy
 cdkpipelinedeploy: check-env cdkclean cdkbuild
-	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack2-build" --profile damadden88 --require-approval never
+	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack3-build"  --profile damadden88 --require-approval never
 
 .PHONY: bootstrap
 bootstrap:
-	cd cdk && cdk bootstrap --profile damadden88 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://981237193288/us-east-1
+	cd cdk && cdk bootstrap --profile damadden88 --trust 981237193288 --force --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://981237193288/us-east-1
 	cd cdk && cdk bootstrap --profile damadden88 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://981237193288/eu-central-1

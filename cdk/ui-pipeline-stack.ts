@@ -1,4 +1,4 @@
-import { Artifact } from '@aws-cdk/aws-codepipeline';
+import { Artifact, Pipeline } from '@aws-cdk/aws-codepipeline';
 import { GitHubSourceAction } from '@aws-cdk/aws-codepipeline-actions';
 import { App, Stack, StackProps, SecretValue, Tags } from '@aws-cdk/core';
 // import { ServicePrincipal, Role, ManagedPolicy } from '@aws-cdk/aws-iam';
@@ -6,8 +6,8 @@ import { App, Stack, StackProps, SecretValue, Tags } from '@aws-cdk/core';
 import { prodAccount } from './accountConfig';
 import { CdkPipeline, ShellScriptAction, SimpleSynthAction } from "@aws-cdk/pipelines";
 import { FrontendStage } from './frontend-stage';
-// import { StringParameter } from '@aws-cdk/aws-ssm';
-// import { prodAccount } from './app';
+import { AutoDeleteBucket } from '@mobileposse/auto-delete-bucket';
+
 
 export interface UIPipelineStackProps extends StackProps {
   cdkVersion: string;
@@ -17,54 +17,33 @@ export interface UIPipelineStackProps extends StackProps {
   runtime: {[k: string]: string | number};
 }
 
-// function createRoleProfile(account: AccountConfig) {
-//   return [
-//     `aws --profile unimed-${account.stage} configure set source_profile damadden88`,
-//     `aws --profile unimed-${account.stage} configure set role_arn 'arn:aws:iam::${account.id}:role/unimed-${account.stage}'`,
-//     `aws --profile unimed-${account.stage} configure set region ${AllowedRegions.euCentral1}`,
-//   ];
-// }
-
 export class UIPipelineStack extends Stack {
   constructor(app: App, id: string, props: UIPipelineStackProps) {
     super(app, id, props);
 
     Tags.of(this).add('FrontendPipeline', this.stackName);
 
-    // const pipeline = new Pipeline(this, `${this.stackName}-pipeline`, {
-    //   pipelineName: `${this.stackName}-pipeline`,
-    // });
-
-    // const cdkDeployRole = new Role(this, 'createInstanceBuildRole', {
-    //   assumedBy: new ServicePrincipal('codebuild.amazonaws.com'),
-    //   managedPolicies: [
-    //     ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
-    //   ],
-    // });
-
-
-    // const sourceOutput = new Artifact();
-
-    // const oauth = StringParameter.valueForSecureStringParameter(
-    //   this, 'muller88-github-token', 1);
     const oauth = SecretValue.secretsManager('alfcdk', {
       jsonField: 'muller88-github-token',
     });
 
-    // pipeline.addStage({
-    //   stageName: 'Source',
-    //   actions: [
-    //     gitSource,
-    //   ],
-    // });
+    const sourceBucket = new AutoDeleteBucket(this, 'PipeBucket', {
+      versioned: true,
+    });
+
+    const pipeline = new Pipeline(this, 'Pipeline', {
+      artifactBucket: sourceBucket,
+      restartExecutionOnUpdate: true,
+    });
 
     const sourceArtifact = new Artifact();
     const cloudAssemblyArtifact = new Artifact();
 
-    const pipeline = new CdkPipeline(this, 'Pipeline', {
+    const cdkPipeline = new CdkPipeline(this, 'CdkPipeline', {
       // The pipeline name
-      pipelineName: `${this.stackName}-pipeline`,
+      // pipelineName: `${this.stackName}-pipeline`,
       cloudAssemblyArtifact,
+      codePipeline: pipeline,
 
       // Where the source can be found
       sourceAction: new GitHubSourceAction({
@@ -84,7 +63,7 @@ export class UIPipelineStack extends Stack {
         synthCommand: 'make cdksynthprod',
         // subdirectory: 'cdk',
         // We need a build step to compile the TypeScript Lambda
-        buildCommand: 'make build && make cdkbuild'
+        buildCommand: 'make build && make cdkbuild',
       }),
     });
 
@@ -96,13 +75,13 @@ export class UIPipelineStack extends Stack {
           region: account.region,
         },
       });
-      const preprodStage = pipeline.addApplicationStage(frontendStage);
+      const preprodStage = cdkPipeline.addApplicationStage(frontendStage);
       preprodStage.addActions(new ShellScriptAction({
         actionName: 'TestFrontend',
         useOutputs: {
           // Get the stack Output from the Stage and make it available in
           // the shell script as $ENDPOINT_URL.
-          ENDPOINT_URL: pipeline.stackOutput(frontendStage.domainName),
+          ENDPOINT_URL: cdkPipeline.stackOutput(frontendStage.domainName),
         },
         commands: [
           // Use 'curl' to GET the given URL and fail if it returns an error

@@ -67,6 +67,6 @@ const uiPipelineStackProps: UIPipelineStackProps = {
 console.info(`uiPipelineStackProps: ${JSON.stringify(uiPipelineStackProps, null, 2)}`);
 
 // tslint:disable-next-line: no-unused-expression
-new UIPipelineStack(app, `${config.repositoryName}-pipeline-stack2-build`, uiPipelineStackProps);
+new UIPipelineStack(app, `${config.repositoryName}-pipeline-stack3-build`, uiPipelineStackProps);
 
 app.synth();
