@@ -74,7 +74,7 @@ cdkdeployprod: cdkclean cdkbuild buildprod
 
 .PHONY: cdksynthprod
 cdksynthprod: cdkclean cdkbuild buildprod
-	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile damadden88
+	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --context @aws-cdk/core:newStyleStackSynthesis=1 --context aws-cdk:enableDiffNoFail=1 --profile damadden88
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
