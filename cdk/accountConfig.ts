@@ -17,7 +17,7 @@ export const devAccount = {
   stage: 'dev',
   domainName: 'dev.alfpro.net',
   subDomain: 'app',
-  acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/0c2cc2a7-b0aa-4201-8d9b-dc7c23154676',
+  acmCertRef: 'arn:aws:acm:us-east-1:981237193288:certificate/f605dd8c-4ae3-4c1b-9471-4b152e0f8846',
   hostedZoneId: 'Z036396421QYOR6PI3CPX',
   zoneName: 'dev.alfpro.net.',
 }
