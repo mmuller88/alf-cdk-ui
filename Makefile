@@ -78,11 +78,11 @@ cdksynthprod: cdkclean cdkbuild buildprod
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
-	cdk diff "$(FUNCTION_NAME)-pipeline-stack-build" || true
+	cd cdk && cdk diff "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 && cp -r cdk.out ../cdk.out || true
 
 .PHONY: cdkpipelinedeploy
 cdkpipelinedeploy: check-env cdkclean cdkbuild
-	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build"  --profile damadden88 --require-approval never
+	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 --require-approval never
 
 .PHONY: bootstrap
 bootstrap:

@@ -1,21 +1,23 @@
-import { StackProps, Construct, CfnOutput, Stack } from '@aws-cdk/core';
-import { AutoDeleteBucket } from '@mobileposse/auto-delete-bucket'
-import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
+import { StackProps, Construct, CfnOutput } from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/core';
+import { AutoDeleteBucket } from 'alf-cdk-app-pipeline/node_modules/@mobileposse/auto-delete-bucket'
+import { BucketDeployment, Source } from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-s3-deployment';
 import {
   CloudFrontWebDistribution,
   CloudFrontWebDistributionProps,
   OriginAccessIdentity,
   SSLMethod,
   SecurityPolicyProtocol
-} from '@aws-cdk/aws-cloudfront';
-import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
-import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
+} from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-cloudfront';
+import { ARecord, HostedZone, RecordTarget } from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-route53';
+import { CloudFrontTarget } from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-route53-targets';
 // @ts-ignore
-import codedeploy = require('@aws-cdk/aws-codedeploy');
+import codedeploy = require('alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-codedeploy');
 // @ts-ignore
-import lambda = require('@aws-cdk/aws-lambda');
+import lambda = require('alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-lambda');
 // @ts-ignore
-import core = require('@aws-cdk/core');
+import core = require('alf-cdk-app-pipeline/node_modules/@aws-cdk/core');
+import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
+// import { CustomStack } from '../../alf-cdk-app-pipeline/custom-stack';
 
 
 export interface UIStackProps extends StackProps {
@@ -29,7 +31,7 @@ export interface UIStackProps extends StackProps {
   // appVersion: string;
 }
 
-export class UIStack extends Stack {
+export class UIStack extends CustomStack {
 
   public readonly domainName: CfnOutput;
 
@@ -97,6 +99,12 @@ export class UIStack extends Stack {
     this.domainName = new CfnOutput(this, 'route', {
       value: route.domainName,
     });
+
+    // console.log('cfnOutputs = ' + JSON.stringify(this.cfnOutputs));
+
+    this.cfnOutputs['domainName'] = this.domainName;
+
+    // this.cfnOutputs.set('domainName', this.domainName);
   }
 
 }
