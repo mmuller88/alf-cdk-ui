@@ -1,21 +1,15 @@
-import { StackProps, Construct, CfnOutput } from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/core';
-import { AutoDeleteBucket } from 'alf-cdk-app-pipeline/node_modules/@mobileposse/auto-delete-bucket'
-import { BucketDeployment, Source } from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-s3-deployment';
+import { StackProps, Construct, CfnOutput, RemovalPolicy } from '@aws-cdk/core';
+import { AutoDeleteBucket } from '@mobileposse/auto-delete-bucket'
+import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 import {
   CloudFrontWebDistribution,
   CloudFrontWebDistributionProps,
   OriginAccessIdentity,
   SSLMethod,
   SecurityPolicyProtocol
-} from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-cloudfront';
-import { ARecord, HostedZone, RecordTarget } from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-route53';
-import { CloudFrontTarget } from 'alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-route53-targets';
-// @ts-ignore
-import codedeploy = require('alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-codedeploy');
-// @ts-ignore
-import lambda = require('alf-cdk-app-pipeline/node_modules/@aws-cdk/aws-lambda');
-// @ts-ignore
-import core = require('alf-cdk-app-pipeline/node_modules/@aws-cdk/core');
+} from '@aws-cdk/aws-cloudfront';
+import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
+import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
 // import { CustomStack } from '../../alf-cdk-app-pipeline/custom-stack';
 
@@ -42,7 +36,7 @@ export class UIStack extends CustomStack {
       bucketName: `${props.subDomain}.${props.domainName}`,
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'index.html',
-      removalPolicy: core.RemovalPolicy.DESTROY,
+      removalPolicy: RemovalPolicy.DESTROY,
     });
 
     const cloudFrontOAI = new OriginAccessIdentity(this, 'OAI', {
