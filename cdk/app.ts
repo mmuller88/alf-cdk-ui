@@ -11,6 +11,7 @@ new PipelineApp({
   customStack: (scope, account) => {
     // console.log('echo = ' + JSON.stringify(account));
     return new UIStack(scope, `${name}-${account.stage}`, {
+      stackName: `${name}-${account.stage}`,
       stage: account.stage,
       domainName: account.domainName,
       acmCertRef: account.acmCertRef,
