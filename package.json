@@ -1,6 +1,6 @@
 {
   "name": "alf-cdk-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@martinmuellerdev/alf-cdk-typescript-client": "mmuller88/alf-cdk-typescript-client",
@@ -36,7 +36,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "version": "standard-version",
+    "versionAsMinor": "standard-version --release-as minor"
   },
   "eslintConfig": {
     "extends": "react-app"
