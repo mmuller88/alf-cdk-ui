@@ -11,7 +11,9 @@ amplify/backend/amplify-meta.json
 /coverage
 
 # production
-/build
+build
+build-dev
+build-prod
 
 # misc
 .DS_Store

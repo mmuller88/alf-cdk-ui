@@ -53,6 +53,7 @@ new PipelineApp({
       zoneName: stageProps.zoneName,
     })
   },
+  buildCommand: 'npm run build:dev && npm run build:prod',
   testCommands: (_) => [
     // Use 'curl' to GET the given URL and fail if it returns an error
     'curl -Ssf $domainName',

@@ -77,7 +77,7 @@ export class UIStack extends CustomStack {
 
     // tslint:disable-next-line: no-unused-expression
     new BucketDeployment(this, `DeployApp-${new Date().toString()}`, {
-      sources: [Source.asset("../build")],
+      sources: [Source.asset(`../build-${props.stage}`)],
       destinationBucket: bucket,
       distribution: cloudfrontDistribution,
       distributionPaths: ['/'],

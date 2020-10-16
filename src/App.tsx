@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import './App.css'
 import SwaggerUI from 'swagger-ui-react';
+// tslint:disable-next-line: no-submodule-imports
 import "swagger-ui-react/swagger-ui.css"
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth }from 'aws-amplify';
 import aws_exports from './aws-exports';
 
-// import { Configuration, InstancesConfApi } from '@martinmuellerdev/alf-cdk-typescript-client';
+import { Configuration, InstancesConfApi } from 'alf-cdk/tslib/lib';
 
 Amplify.configure(aws_exports);
 
-var jwt = 'no';
-var userName: string;
+let jwt = 'no';
+let userName: string;
 
 class App extends Component {
   constructor(props: any) {
@@ -22,35 +23,41 @@ class App extends Component {
     }).then(authUser =>{
       // console.log(authUser)
       userName = authUser.username;
+      // tslint:disable-next-line: no-console
       console.log(userName)
     } )
+    // tslint:disable-next-line: no-console
     .catch(err => console.log(err));
 
     Auth.currentSession().then(res=>{
-      let accessToken = res.getAccessToken();
+      const accessToken = res.getAccessToken();
       jwt = accessToken.getJwtToken();
       //You can print them to see the full objects
+      // tslint:disable-next-line: no-console
       console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
+      // tslint:disable-next-line: no-console
       console.log(`myJwt: ${jwt}`)
 
-      // const config = new Configuration({
-      //   accessToken: jwt,
-      //   basePath: 'https://api.alfpro.net'
-      // });
+      const config = new Configuration({
+        accessToken: jwt,
+        basePath: process.env.REACT_APP_API_URL || 'https://api.alfpro.net'
+      });
 
-      // const api = new InstancesConfApi(config);
+      const api = new InstancesConfApi(config);
 
-      // api.getInstanceConfs(undefined, {
-      //   headers: {
-      //     Authorization: jwt
-      //   }
-      // }).then(succeeded => {
-      //   console.log(`getInstanceConfs succeeded`);
-      //   succeeded.data.forEach(instanceConf => {
-      //     // instanceConf.alfInstanceId
-      //     console.log(`instanceConf: ${JSON.stringify(instanceConf)}`)
-      //   })
-      // })
+      api.getInstanceConfs(undefined, {
+        headers: {
+          Authorization: jwt
+        }
+      }).then(succeeded => {
+        // tslint:disable-next-line: no-console
+        console.log(`getInstanceConfs succeeded`);
+        succeeded.data.forEach(instanceConf => {
+          // instanceConf.alfInstanceId
+          // tslint:disable-next-line: no-console
+          console.log(`instanceConf: ${JSON.stringify(instanceConf)}`)
+        })
+      })
     })
 
 

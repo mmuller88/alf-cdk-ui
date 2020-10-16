@@ -6,7 +6,7 @@
     "module": "esnext",
     "target": "es5",
     "jsx": "react",
-    "allowJs": false,
+    "allowJs": true,
     "lib": [
       "dom",
       "dom.iterable",
