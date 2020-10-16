@@ -44,6 +44,10 @@ new PipelineApp({
     };
     // console.log('echo = ' + JSON.stringify(account));
     return new UIStack(scope, `${name}-${account.stage}`, {
+      env: {
+        account: account.id,
+        region: account.region,
+      },
       stackName: `${name}-${account.stage}`,
       stage: account.stage,
       domainName: stageProps.domainName,
@@ -53,7 +57,7 @@ new PipelineApp({
       zoneName: stageProps.zoneName,
     })
   },
-  buildCommand: 'npm run build:dev && npm run build:prod',
+  buildCommand: 'npm run build',
   testCommands: (_) => [
     // Use 'curl' to GET the given URL and fail if it returns an error
     'curl -Ssf $domainName',

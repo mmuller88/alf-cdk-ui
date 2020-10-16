@@ -9,6 +9,8 @@ import aws_exports from './aws-exports';
 
 import { Configuration, InstancesConfApi } from 'alf-cdk/tslib/lib';
 
+declare const window: any;
+
 Amplify.configure(aws_exports);
 
 let jwt = 'no';
@@ -32,7 +34,7 @@ class App extends Component {
     Auth.currentSession().then(res=>{
       const accessToken = res.getAccessToken();
       jwt = accessToken.getJwtToken();
-      //You can print them to see the full objects
+      // You can print them to see the full objects
       // tslint:disable-next-line: no-console
       console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
       // tslint:disable-next-line: no-console
@@ -40,7 +42,7 @@ class App extends Component {
 
       const config = new Configuration({
         accessToken: jwt,
-        basePath: process.env.REACT_APP_API_URL || 'https://api.alfpro.net'
+        basePath: window.ENV.API_URL || '', // 'https://api.alfpro.net'
       });
 
       const api = new InstancesConfApi(config);

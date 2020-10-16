@@ -3,7 +3,6 @@
   "version": "0.1.1",
   "private": true,
   "dependencies": {
-    "alf-cdk": "github:mmuller88/alf-cdk#master",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
@@ -19,9 +18,11 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/swagger-ui-react": "^3.23.2",
+    "alf-cdk": "github:mmuller88/alf-cdk#master",
     "aws-amplify": "^2.2.0",
     "aws-amplify-react": "^3.1.9",
     "connected-react-router": "^6.8.0",
+    "env-cmd": "^10.1.0",
     "material-table": "^1.68.1",
     "react": "^16.13.1",
     "react-custom-scrollbars": "^4.2.1",
@@ -35,8 +36,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:dev": "REACT_APP_STAGE=dev REACT_APP_API_URL=https://api.dev.alfpro.net react-scripts build && mkdir build-dev && cp -R build/* build-dev",
-    "build:prod": "REACT_APP_STAGE=prod REACT_APP_API_URL=https://api.alfpro.net react-scripts build && mkdir build-prod && cp -R build/* build-prod",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "version": "standard-version",
