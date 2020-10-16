@@ -20,19 +20,19 @@ install:
 
 .PHONY: clean
 clean:
-	rm -rf ./cdk.out ./cdk/cdk.out ./build ./package ./cdk/build
+	rm -rf ./cdk.out ./cdk/cdk.out ./build ./package ./cdk/build ./dist-dev ./dist-prod
 
 .PHONY: build
 build: clean install
 	npm run build
 
 .PHONY: builddev
-builddev: clean install
-	npm run build-dev
+builddev: build
+	mkdir dist-dev && cp -R build/* dist-dev && cp config-dev.js dist-dev/config.js
 
 .PHONY: buildprod
-buildprod: clean install
-	npm run build
+buildprod: build
+	mkdir dist-prod && cp -R build/* dist-prod && cp config-prod.js dist-prod/config.js
 
 .PHONY: test
 test:
@@ -64,12 +64,10 @@ cdkdiffprod: cdkclean cdkbuild buildprod
 
 .PHONY: cdkdeploydev
 cdkdeploydev: cdkclean cdkbuild builddev
-	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
 	cd cdk && cdk deploy '$(FUNCTION_NAME)-dev' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile unimed-dev --require-approval never
 
 .PHONY: cdkdeployprod
 cdkdeployprod: cdkclean cdkbuild buildprod
-	cd cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
 	cd cdk && cdk deploy '$(FUNCTION_NAME)-prod' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile damadden88 --require-approval never
 
 .PHONY: cdksynthprod
