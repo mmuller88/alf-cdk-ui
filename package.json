@@ -36,6 +36,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "dist:dev": "mkdir dist-dev && cp -R build/* dist-dev && cp config-dev.js dist-dev/config.js",
+    "dist:prod": "mkdir dist-prod && cp -R build/* dist-prod && cp config-prod.js dist-prod/config.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "version": "standard-version",
