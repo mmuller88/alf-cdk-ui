@@ -1,4 +1,5 @@
 window.ENV = {
+  STAGE: "dev",
   AWS_PROJECT_REGION: "us-east-1",
   AWS_COGNITO_IDENTITY_POOL_ID: "us-east-1:64e2db0e-ac01-4b72-96c4-eea02623f02b",
   AWS_COGNITO_REGION: "us-east-1",

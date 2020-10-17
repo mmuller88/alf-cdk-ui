@@ -90,15 +90,10 @@ export class UIStack extends CustomStack {
       zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', { zoneName: props.zoneName, hostedZoneId: props.hostedZoneId }),
     });
 
-    this.domainName = new CfnOutput(this, 'route', {
+    this.domainName = new CfnOutput(this, 'domainName', {
       value: route.domainName,
     });
-
-    // console.log('cfnOutputs = ' + JSON.stringify(this.cfnOutputs));
-
     this.cfnOutputs['domainName'] = this.domainName;
-
-    // this.cfnOutputs.set('domainName', this.domainName);
   }
 
 }
