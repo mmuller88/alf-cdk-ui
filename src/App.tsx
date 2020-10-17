@@ -69,7 +69,7 @@ class App extends Component {
     return (
       <div className="App">
        <SwaggerUI
-         url={`https://openapi${window.env.STAGE === 'dev'?'.dev.':'.'}alfpro.net/swagger.json`}
+         url={`https://openapi${window.ENV.STAGE === 'dev'?'.dev.':'.'}alfpro.net/swagger.json`}
          requestInterceptor={request => {
           // request interceptor
           // add custom headers here
