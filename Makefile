@@ -28,11 +28,15 @@ build: clean install
 
 .PHONY: builddev
 builddev: build
-	mkdir dist-dev && cp -R build/* dist-dev && cp config-dev.js dist-dev/config.js
+	npm run dist:dev
 
 .PHONY: buildprod
 buildprod: build
-	mkdir dist-prod && cp -R build/* dist-prod && cp config-prod.js dist-prod/config.js
+	npm run dist:prod
+
+.PHONY: distcdk
+distcdk: build
+	npm run dist:prod && npm run dist:dev
 
 .PHONY: test
 test:
@@ -50,28 +54,24 @@ cdkclean:
 cdkbuild: cdkclean install
 	cd cdk && npm run build
 
-.PHONY: cdkdiff
-cdkdiff: cdkclean cdkbuild
-	cdk diff || true
-
 .PHONY: cdkdiffdev
-cdkdiffdev: cdkclean cdkbuild builddev
+cdkdiffdev: distcdk
 	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
 
 .PHONY: cdkdiffprod
-cdkdiffprod: cdkclean cdkbuild buildprod
+cdkdiffprod: distcdk
 	cd cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
 
 .PHONY: cdkdeploydev
-cdkdeploydev: cdkclean cdkbuild builddev
+cdkdeploydev: distcdk
 	cd cdk && cdk deploy '$(FUNCTION_NAME)-dev' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile unimed-dev --require-approval never
 
 .PHONY: cdkdeployprod
-cdkdeployprod: cdkclean cdkbuild buildprod
+cdkdeployprod: distcdk
 	cd cdk && cdk deploy '$(FUNCTION_NAME)-prod' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile damadden88 --require-approval never
 
 .PHONY: cdksynthprod
-cdksynthprod: cdkclean cdkbuild buildprod
+cdksynthprod: distcdk
 	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88 && mv cdk.out ../cdk.out
 
 .PHONY: cdkpipelinediff
