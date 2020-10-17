@@ -57,7 +57,7 @@ new PipelineApp({
       zoneName: stageProps.zoneName,
     })
   },
-  buildCommand: 'npm run build && npm run dist:dev && npm run dist:prod',
+  buildCommand: 'make distcdk',
   testCommands: (_) => [
     // Use 'curl' to GET the given URL and fail if it returns an error
     'curl -Ssf $domainName',
