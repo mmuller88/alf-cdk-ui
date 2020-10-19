@@ -80,7 +80,6 @@ export class UIStack extends CustomStack {
       sources: [Source.asset(`../dist-${props.stage}`)],
       destinationBucket: bucket,
       distribution: cloudfrontDistribution,
-      distributionPaths: ['/'],
     });
 
     // const zone = HostedZone.fromLookup(this, 'Zone', { domainName: props.domainName });

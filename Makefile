@@ -56,7 +56,7 @@ cdkbuild: cdkclean install
 
 .PHONY: cdkdiffdev
 cdkdiffdev: distcdk
-	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile unimed-dev || true
+	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile damadden88 || true
 
 .PHONY: cdkdiffprod
 cdkdiffprod: distcdk
@@ -64,7 +64,7 @@ cdkdiffprod: distcdk
 
 .PHONY: cdkdeploydev
 cdkdeploydev: distcdk
-	cd cdk && cdk deploy '$(FUNCTION_NAME)-dev' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile unimed-dev --require-approval never
+	cd cdk && cdk deploy '$(FUNCTION_NAME)-dev' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile damadden88 --require-approval never
 
 .PHONY: cdkdeployprod
 cdkdeployprod: distcdk

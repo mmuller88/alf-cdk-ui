@@ -68,14 +68,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <SwaggerUI
-         url={`https://openapi${window.ENV.STAGE === 'dev'?'.dev.':'.'}alfpro.net/swagger.json`}
-         requestInterceptor={request => {
-          // request interceptor
-          // add custom headers here
-          request.headers.Authorization = `${jwt}`;
-          return request;
-        }}
+        <SwaggerUI
+          //  http://openapi.alfpro.net.s3-website-us-east-1.amazonaws.com/swagger.json
+          url={`https://openapi${window.ENV.STAGE === 'dev'?'.dev.':'.'}alfpro.net/swagger.json`}
+          requestInterceptor={request => {
+            // request interceptor
+            // add custom headers here
+            request.headers.Authorization = `${jwt}`;
+            return request;
+          }}
         // responseInterceptor={response => {
         //   // request interceptor
         //   // add custom headers here
