@@ -1,48 +1,34 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "commonjs",
-    "lib": [
-      "dom",
-      "es2018"
-    ],
-    "declaration": true,
-    "strict": true,
-    "resolveJsonModule": true,
-
-    /* Additional Checks */
-    "noUnusedLocals": true
-    /* Report errors on unused locals. */,
-    "noUnusedParameters": true
-    /* Report errors on unused parameters. */,
-    "noImplicitReturns": true
-    /* Report error when not all code paths in function return a value. */,
-    "noFallthroughCasesInSwitch": true
-    /* Report errors for fallthrough cases in switch statement. */,
-    /* Debugging Options */
-    "traceResolution": false
-    /* Report module resolution log messages. */,
-    "listEmittedFiles": false
-    /* Print names of generated files part of the compilation. */,
-    "listFiles": false
-    /* Print names of files part of the compilation. */,
-    "pretty": true,
-
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noImplicitThis": true,
+    "outDir": "lib",
     "alwaysStrict": true,
+    "declaration": true,
+    "experimentalDecorators": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
-    "outDir": "build",
-    "typeRoots": [
-      "./node_modules/@types"
-    ]
+    "lib": [
+      "es2018"
+    ],
+    "module": "CommonJS",
+    "noEmitOnError": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "stripInternal": true,
+    "target": "ES2018"
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
-    "cdk.out",
-    "build"
+    "**/node_modules/**/*",
+    "lib"
   ]
 }

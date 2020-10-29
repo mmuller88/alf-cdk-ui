@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { Switch, Route, Router } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-// import { ConnectedRouter } from "connected-react-router";
+// import { ConnectedRouter } from 'connected-react-router';
 // import * as serviceWorker from './serviceWorker';
 
 // ReactDOM.render(
@@ -19,11 +19,11 @@ import { BrowserRouter } from 'react-router-dom';
 // // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 // ReactDOM.render(<App />, rootElement);
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/" component={App} />
+      <Route path='/' component={App} />
     </Switch>
   </BrowserRouter>, rootElement);

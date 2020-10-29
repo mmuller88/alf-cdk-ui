@@ -1,13 +1,13 @@
 .DEFAULT_GOAL := build
 
-FUNCTION_NAME := $(shell node -p "require('./package.json').name")
+PACKAGE_NAME := $(shell node -p "require('./package.json').name")
 
 check-env:
-ifeq ($(FUNCTION_NAME),)
-	$(error FUNCTION_NAME is empty)
+ifeq ($(PACKAGE_NAME),)
+	$(error PACKAGE_NAME is empty)
 endif
-ifeq ($(FUNCTION_NAME),undefined)
-	$(error FUNCTION_NAME is undefined)
+ifeq ($(PACKAGE_NAME),undefined)
+	$(error PACKAGE_NAME is undefined)
 endif
 
 .PHONY: prepare
@@ -54,33 +54,25 @@ cdkclean:
 cdkbuild: cdkclean install
 	cd cdk && npm run build
 
-.PHONY: cdkdiffdev
-cdkdiffdev: distcdk
-	cd cdk && cdk diff '$(FUNCTION_NAME)-dev' --profile damadden88 || true
+.PHONY: cdkdiff
+cdkdiff: distcdk
+	cd cdk && cdk diff '$(PACKAGE_NAME)-${STAGE}' --profile damadden88 || true
 
-.PHONY: cdkdiffprod
-cdkdiffprod: distcdk
-	cd cdk && cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
+.PHONY: cdkdeploy
+cdkdeploy: distcdk
+	cd cdk && cdk deploy '$(PACKAGE_NAME)-${STAGE}' --profile damadden88 --require-approval never
 
-.PHONY: cdkdeploydev
-cdkdeploydev: distcdk
-	cd cdk && cdk deploy '$(FUNCTION_NAME)-dev' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile damadden88 --require-approval never
-
-.PHONY: cdkdeployprod
-cdkdeployprod: distcdk
-	cd cdk && cdk deploy '$(FUNCTION_NAME)-prod' --context @aws-cdk/core:newStyleStackSynthesis=1 --profile damadden88 --require-approval never
-
-.PHONY: cdksynthprod
-cdksynthprod: distcdk
-	cd cdk && cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88 && mv cdk.out ../cdk.out
+.PHONY: cdksynth
+cdksynth: distcdk
+	cd cdk && cdk synth '$(PACKAGE_NAME)-${STAGE}' --profile damadden88 && mv cdk.out ../cdk.out
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
-	cd cdk && cdk diff "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 && cp -r cdk.out ../cdk.out || true
+	cd cdk && cdk diff "$(PACKAGE_NAME)-pipeline-stack-build" --profile damadden88 && cp -r cdk.out ../cdk.out || true
 
 .PHONY: cdkpipelinedeploy
 cdkpipelinedeploy: check-env cdkclean cdkbuild
-	cd cdk && cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 --require-approval never
+	cd cdk && cdk deploy "$(PACKAGE_NAME)-pipeline-stack-build" --profile damadden88 --require-approval never
 
 .PHONY: bootstrap
 bootstrap:
