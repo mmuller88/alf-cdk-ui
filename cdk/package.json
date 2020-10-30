@@ -43,16 +43,16 @@
     "eslint-plugin-import": "^2.22.1",
     "jest": "^26.4.2",
     "json-schema": "^0.2.5",
-    "projen": "^0.3.133",
+    "projen": "^0.3.138",
     "standard-version": "^9.0.0",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
-    "alf-cdk-app-pipeline": "github:mmuller88/alf-cdk-app-pipeline#master"
+    "alf-cdk-app-pipeline": "github:mmuller88/alf-cdk-app-pipeline#v0.0.8"
   },
   "dependencies": {
-    "alf-cdk-app-pipeline": "github:mmuller88/alf-cdk-app-pipeline#master"
+    "alf-cdk-app-pipeline": "github:mmuller88/alf-cdk-app-pipeline#v0.0.8"
   },
   "bundledDependencies": [],
   "keywords": [

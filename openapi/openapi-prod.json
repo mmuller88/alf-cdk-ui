@@ -1,0 +1,1135 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Alf Instance Service",
+    "version": "2020-10-30T06:21:27Z"
+  },
+  "servers": [
+    {
+      "url": "https://api.alfpro.net"
+    }
+  ],
+  "paths": {
+    "/instances/{alfInstanceId}": {
+      "get": {
+        "operationId": "GetInstance",
+        "parameters": [
+          {
+            "name": "alfInstanceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Instance"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "CognitoAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:981237193288:function:getInstancesApi/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST"
+        }
+      },
+      "options": {
+        "responses": {
+          "204": {
+            "description": "204 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Methods": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "type": "mock",
+          "responses": {
+            "default": {
+              "statusCode": "204",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'https://openapi.dev.alfpro.net'",
+                "method.response.header.Vary": "'Origin'"
+              },
+              "responseTemplates": {
+                "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\"https://api.dev.alfpro.net\") || $origin.matches(\"https://app.dev.alfpro.net\") || $origin.matches(\"http://localhost:3000\"))\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "passthroughBehavior": "when_no_match"
+        }
+      }
+    },
+    "/instances-conf": {
+      "get": {
+        "operationId": "GetInstancesConf",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstanceConfList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "CognitoAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-request-validator": "validator",
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:981237193288:function:getAllConfApi/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST"
+        }
+      },
+      "post": {
+        "operationId": "CreateInstancesConf",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewInstanceConf"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstanceConf"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "CognitoAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-request-validator": "validator",
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:981237193288:function:createConfApi/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST"
+        }
+      },
+      "options": {
+        "responses": {
+          "204": {
+            "description": "204 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Methods": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "type": "mock",
+          "responses": {
+            "default": {
+              "statusCode": "204",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'https://openapi.dev.alfpro.net'",
+                "method.response.header.Vary": "'Origin'"
+              },
+              "responseTemplates": {
+                "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\"https://api.dev.alfpro.net\") || $origin.matches(\"https://app.dev.alfpro.net\") || $origin.matches(\"http://localhost:3000\"))\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "passthroughBehavior": "when_no_match"
+        }
+      }
+    },
+    "/instances": {
+      "get": {
+        "operationId": "GetInstances",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstanceList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "CognitoAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-request-validator": "validator",
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:981237193288:function:getInstancesApi/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST"
+        }
+      },
+      "options": {
+        "responses": {
+          "204": {
+            "description": "204 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Methods": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "type": "mock",
+          "responses": {
+            "default": {
+              "statusCode": "204",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'https://openapi.dev.alfpro.net'",
+                "method.response.header.Vary": "'Origin'"
+              },
+              "responseTemplates": {
+                "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\"https://api.dev.alfpro.net\") || $origin.matches(\"https://app.dev.alfpro.net\") || $origin.matches(\"http://localhost:3000\"))\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "passthroughBehavior": "when_no_match"
+        }
+      }
+    },
+    "/instances-conf/{alfInstanceId}": {
+      "get": {
+        "operationId": "GetInstanceConf",
+        "parameters": [
+          {
+            "name": "alfInstanceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstanceConf"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "CognitoAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-request-validator": "validator",
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:981237193288:function:getOneConfApi/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST"
+        }
+      },
+      "put": {
+        "operationId": "UpdateInstanceConf",
+        "parameters": [
+          {
+            "name": "alfInstanceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutInstanceConf"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "201 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstanceConf"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "CognitoAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-request-validator": "validator",
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:981237193288:function:updateApi/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST"
+        }
+      },
+      "options": {
+        "responses": {
+          "204": {
+            "description": "204 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Methods": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {}
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "type": "mock",
+          "responses": {
+            "default": {
+              "statusCode": "204",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'https://openapi.dev.alfpro.net'",
+                "method.response.header.Vary": "'Origin'"
+              },
+              "responseTemplates": {
+                "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\"https://api.dev.alfpro.net\") || $origin.matches(\"https://app.dev.alfpro.net\") || $origin.matches(\"http://localhost:3000\"))\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "passthroughBehavior": "when_no_match"
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PutInstanceConf": {
+        "required": [
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "expectedStatus": {
+            "type": "string",
+            "description": "The state you are allow to put your instance in. Warning putting instances into terminated will delete the instance-conf and instance!",
+            "enum": [
+              "running",
+              "terminated",
+              "stopped"
+            ]
+          },
+          "userId": {
+            "maxLength": 64,
+            "minLength": 2,
+            "pattern": "[a-zA-Z0-9]{2,64}",
+            "type": "string",
+            "additionalProperties": false,
+            "description": "Simple user name. Please use your user name from the system."
+          }
+        },
+        "additionalProperties": false
+      },
+      "InstanceConf": {
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "required": [
+              "userId"
+            ],
+            "type": "object",
+            "properties": {
+              "alfType": {
+                "required": [
+                  "ec2InstanceType",
+                  "gitRepo"
+                ],
+                "type": "object",
+                "properties": {
+                  "ec2InstanceType": {
+                    "type": "string",
+                    "description": "Supported Ec2 Instance Type. Supported are:\nt2.large - 2 CPU, 8 GB RAM\nt2.xlarge - 4 CPU, 16 GB RAM\n",
+                    "enum": [
+                      "t2.large",
+                      "t2.xlarge"
+                    ]
+                  },
+                  "gitRepo": {
+                    "type": "string",
+                    "description": "Name of supported Alfresco Docker Compose Deployment deployed with the Alfresco installer.\nalf-ec-1 : ACS 6.2 Community, ACA\n",
+                    "enum": [
+                      "alf-ec2-1"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              "userId": {
+                "maxLength": 64,
+                "minLength": 2,
+                "pattern": "[a-zA-Z0-9]{2,64}",
+                "type": "string",
+                "additionalProperties": false,
+                "description": "Simple user name. Please use your user name from the system."
+              },
+              "tags": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "A Name which will be attached as Name Tag to the EC2 Instance"
+                  }
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "required": [
+              "alfInstanceId",
+              "expectedStatus"
+            ],
+            "type": "object",
+            "properties": {
+              "alfInstanceId": {
+                "maxLength": 5,
+                "minLength": 5,
+                "pattern": "[a-z0-9]{5,5}",
+                "type": "string",
+                "additionalProperties": false,
+                "description": "User Instance Identifier created with node uuid. Consists of 5 characters!"
+              },
+              "expectedStatus": {
+                "type": "string",
+                "description": "The state you are allow to put your instance in. Warning putting instances into terminated will delete the instance-conf and instance!",
+                "enum": [
+                  "running",
+                  "terminated",
+                  "stopped"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "InstanceConfList": {
+        "type": "array",
+        "items": {
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "required": [
+                "userId"
+              ],
+              "type": "object",
+              "properties": {
+                "alfType": {
+                  "required": [
+                    "ec2InstanceType",
+                    "gitRepo"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "ec2InstanceType": {
+                      "type": "string",
+                      "description": "Supported Ec2 Instance Type. Supported are:\nt2.large - 2 CPU, 8 GB RAM\nt2.xlarge - 4 CPU, 16 GB RAM\n",
+                      "enum": [
+                        "t2.large",
+                        "t2.xlarge"
+                      ]
+                    },
+                    "gitRepo": {
+                      "type": "string",
+                      "description": "Name of supported Alfresco Docker Compose Deployment deployed with the Alfresco installer.\nalf-ec-1 : ACS 6.2 Community, ACA\n",
+                      "enum": [
+                        "alf-ec2-1"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "userId": {
+                  "maxLength": 64,
+                  "minLength": 2,
+                  "pattern": "[a-zA-Z0-9]{2,64}",
+                  "type": "string",
+                  "additionalProperties": false,
+                  "description": "Simple user name. Please use your user name from the system."
+                },
+                "tags": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "A Name which will be attached as Name Tag to the EC2 Instance"
+                    }
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "required": [
+                "alfInstanceId",
+                "expectedStatus"
+              ],
+              "type": "object",
+              "properties": {
+                "alfInstanceId": {
+                  "maxLength": 5,
+                  "minLength": 5,
+                  "pattern": "[a-z0-9]{5,5}",
+                  "type": "string",
+                  "additionalProperties": false,
+                  "description": "User Instance Identifier created with node uuid. Consists of 5 characters!"
+                },
+                "expectedStatus": {
+                  "type": "string",
+                  "description": "The state you are allow to put your instance in. Warning putting instances into terminated will delete the instance-conf and instance!",
+                  "enum": [
+                    "running",
+                    "terminated",
+                    "stopped"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "UpdateError": {
+        "required": [
+          "instanceConf",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "instanceConf": {
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "required": [
+                  "userId"
+                ],
+                "type": "object",
+                "properties": {
+                  "alfType": {
+                    "required": [
+                      "ec2InstanceType",
+                      "gitRepo"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "ec2InstanceType": {
+                        "type": "string",
+                        "description": "Supported Ec2 Instance Type. Supported are:\nt2.large - 2 CPU, 8 GB RAM\nt2.xlarge - 4 CPU, 16 GB RAM\n",
+                        "enum": [
+                          "t2.large",
+                          "t2.xlarge"
+                        ]
+                      },
+                      "gitRepo": {
+                        "type": "string",
+                        "description": "Name of supported Alfresco Docker Compose Deployment deployed with the Alfresco installer.\nalf-ec-1 : ACS 6.2 Community, ACA\n",
+                        "enum": [
+                          "alf-ec2-1"
+                        ]
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "userId": {
+                    "maxLength": 64,
+                    "minLength": 2,
+                    "pattern": "[a-zA-Z0-9]{2,64}",
+                    "type": "string",
+                    "additionalProperties": false,
+                    "description": "Simple user name. Please use your user name from the system."
+                  },
+                  "tags": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "A Name which will be attached as Name Tag to the EC2 Instance"
+                      }
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "required": [
+                  "alfInstanceId",
+                  "expectedStatus"
+                ],
+                "type": "object",
+                "properties": {
+                  "alfInstanceId": {
+                    "maxLength": 5,
+                    "minLength": 5,
+                    "pattern": "[a-z0-9]{5,5}",
+                    "type": "string",
+                    "additionalProperties": false,
+                    "description": "User Instance Identifier created with node uuid. Consists of 5 characters!"
+                  },
+                  "expectedStatus": {
+                    "type": "string",
+                    "description": "The state you are allow to put your instance in. Warning putting instances into terminated will delete the instance-conf and instance!",
+                    "enum": [
+                      "running",
+                      "terminated",
+                      "stopped"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Instance": {
+        "required": [
+          "adminCredentials",
+          "alfInstanceId",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "adminCredentials": {
+            "required": [
+              "password",
+              "userName"
+            ],
+            "type": "object",
+            "properties": {
+              "password": {
+                "type": "string"
+              },
+              "userName": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "alfInstanceId": {
+            "maxLength": 5,
+            "minLength": 5,
+            "pattern": "[a-z0-9]{5,5}",
+            "type": "string",
+            "additionalProperties": false,
+            "description": "User Instance Identifier created with node uuid. Consists of 5 characters!"
+          },
+          "awsUrl": {
+            "type": "string",
+            "description": "Alternative url for the Alfresco instance."
+          },
+          "url": {
+            "type": "string",
+            "description": "The Url to access ACA. Currently only http is supported. Urls are ACA = ../ Share = ../share Alfresco = ../alfresco . It takes up to 3 minutes until this url becomes available. In future I plan to implement a healthcheck (probably leveraging AWS AutoScaling) to make the readiness of ACS more feaseble.\n\nThe propagation of the DNS Record normally takes a bit longer. Alternatively you can use the awsUrl to access your instance."
+          },
+          "status": {
+            "type": "string",
+            "description": "Shows the current state. Even if your instance is in the running state it might take some minutes until the provided url is reachable.",
+            "enum": [
+              "running",
+              "terminated",
+              "stopped",
+              "pending",
+              "stopping"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthError": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "NewInstanceConf": {
+        "required": [
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "alfType": {
+            "required": [
+              "ec2InstanceType",
+              "gitRepo"
+            ],
+            "type": "object",
+            "properties": {
+              "ec2InstanceType": {
+                "type": "string",
+                "description": "Supported Ec2 Instance Type. Supported are:\nt2.large - 2 CPU, 8 GB RAM\nt2.xlarge - 4 CPU, 16 GB RAM\n",
+                "enum": [
+                  "t2.large",
+                  "t2.xlarge"
+                ]
+              },
+              "gitRepo": {
+                "type": "string",
+                "description": "Name of supported Alfresco Docker Compose Deployment deployed with the Alfresco installer.\nalf-ec-1 : ACS 6.2 Community, ACA\n",
+                "enum": [
+                  "alf-ec2-1"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "userId": {
+            "maxLength": 64,
+            "minLength": 2,
+            "pattern": "[a-zA-Z0-9]{2,64}",
+            "type": "string",
+            "additionalProperties": false,
+            "description": "Simple user name. Please use your user name from the system."
+          },
+          "tags": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "A Name which will be attached as Name Tag to the EC2 Instance"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotFoundError": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ValidationError": {
+        "required": [
+          "message",
+          "validationErrors"
+        ],
+        "type": "object",
+        "properties": {
+          "validationErrors": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "InstanceList": {
+        "type": "array",
+        "items": {
+          "required": [
+            "adminCredentials",
+            "alfInstanceId",
+            "status"
+          ],
+          "type": "object",
+          "properties": {
+            "adminCredentials": {
+              "required": [
+                "password",
+                "userName"
+              ],
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string"
+                },
+                "userName": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "alfInstanceId": {
+              "maxLength": 5,
+              "minLength": 5,
+              "pattern": "[a-z0-9]{5,5}",
+              "type": "string",
+              "additionalProperties": false,
+              "description": "User Instance Identifier created with node uuid. Consists of 5 characters!"
+            },
+            "awsUrl": {
+              "type": "string",
+              "description": "Alternative url for the Alfresco instance."
+            },
+            "url": {
+              "type": "string",
+              "description": "The Url to access ACA. Currently only http is supported. Urls are ACA = ../ Share = ../share Alfresco = ../alfresco . It takes up to 3 minutes until this url becomes available. In future I plan to implement a healthcheck (probably leveraging AWS AutoScaling) to make the readiness of ACS more feaseble.\n\nThe propagation of the DNS Record normally takes a bit longer. Alternatively you can use the awsUrl to access your instance."
+            },
+            "status": {
+              "type": "string",
+              "description": "Shows the current state. Even if your instance is in the running state it might take some minutes until the provided url is reachable.",
+              "enum": [
+                "running",
+                "terminated",
+                "stopped",
+                "pending",
+                "stopping"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "securitySchemes": {
+      "CognitoAuthorizer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "x-amazon-apigateway-authtype": "cognito_user_pools",
+        "x-amazon-apigateway-authorizer": {
+          "type": "cognito_user_pools",
+          "providerARNs": [
+            "arn:aws:cognito-idp:eu-central-1:981237193288:userpool/eu-central-1_xI5xo2eys"
+          ],
+          "identityValidationExpression": "Bearer (.*)"
+        }
+      }
+    }
+  },
+  "x-amazon-apigateway-gateway-responses": {
+    "DEFAULT_4XX": {
+      "responseParameters": {
+        "gatewayresponse.header.Access-Control-Exposed-Headers": "'ETag','x-amz-meta-custom-header','Authorization','Content-Type','Accept'",
+        "gatewayresponse.header.Access-Control-Allow-Methods": "'*'",
+        "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+        "gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
+      }
+    },
+    "BAD_REQUEST_BODY": {
+      "responseParameters": {
+        "gatewayresponse.header.Access-Control-Exposed-Headers": "'ETag','x-amz-meta-custom-header','Authorization','Content-Type','Accept'",
+        "gatewayresponse.header.Access-Control-Allow-Methods": "'*'",
+        "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+        "gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
+      },
+      "responseTemplates": {
+        "application/json": "{\"message\":$context.error.messageString,\"validationErrors\":\"$context.error.validationErrorString\"}"
+      }
+    }
+  },
+  "x-amazon-apigateway-request-validators": {
+    "validator": {
+      "validateRequestParameters": true,
+      "validateRequestBody": true
+    }
+  }
+}

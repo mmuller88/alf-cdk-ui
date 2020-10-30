@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-// import SwaggerUI from 'swagger-ui-react';
+import SwaggerUI from 'swagger-ui-react';
 // tslint:disable-next-line: no-submodule-imports
 import 'swagger-ui-react/swagger-ui.css';
 import { withAuthenticator } from 'aws-amplify-react';
@@ -14,6 +14,7 @@ declare const window: any;
 Amplify.configure(aws_exports);
 
 let jwt = 'no';
+let jwt2 = 'no2';
 let userName: string;
 
 class App extends Component {
@@ -25,17 +26,19 @@ class App extends Component {
     }).then(authUser =>{
       // console.log(authUser)
       userName = authUser.username;
+      jwt = authUser.signInUserSession.idToken.jwtToken;
       console.log(userName);
+      console.log(`jwt2: ${jwt}`);
     }).catch(err => console.log(err));
 
     Auth.currentSession().then(res=>{
       const accessToken = res.getAccessToken();
-      jwt = accessToken.getJwtToken();
+      jwt2 = accessToken.getJwtToken();
       // You can print them to see the full objects
       // tslint:disable-next-line: no-console
       console.log(`myAccessToken: ${JSON.stringify(accessToken)}`);
       // tslint:disable-next-line: no-console
-      console.log(`myJwt: ${jwt}`);
+      console.log(`myJwt: ${jwt2}`);
 
       // const config = new Configuration({
       //   accessToken: jwt,
@@ -63,9 +66,10 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        {/* <SwaggerUI
+        <SwaggerUI
           //  http://openapi.alfpro.net.s3-website-us-east-1.amazonaws.com/swagger.json
-          url={`https://openapi${window.ENV.STAGE === 'dev'?'.dev.':'.'}alfpro.net/swagger.json`}
+          // url={`https://openapi${window.ENV.STAGE === 'dev'?'.dev.':'.'}alfpro.net/swagger.json`}
+          url={'openapi.json'}
           requestInterceptor={request => {
             // request interceptor
             // add custom headers here
@@ -78,7 +82,7 @@ class App extends Component {
         //   response.headers['Access-Control-Allow-Origin'] = '*';
         //   return response;
         // }}
-        /> */}
+        />
       </div>
     );
   }

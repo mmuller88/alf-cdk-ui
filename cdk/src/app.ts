@@ -63,7 +63,6 @@ new PipelineApp({
   manualApprovals: (account) => {
     return account.stage === 'dev' ? false : true;
   },
-  buildCommand: 'make distcdk',
   testCommands: (_) => [
     // Use 'curl' to GET the given URL and fail if it returns an error
     'curl -Ssf $domainName',
