@@ -42,13 +42,13 @@ const stage = '${STAGE:-dev}';
 const prepareCdk = 'yarn run build && cd cdk && yarn install'
 
 project.addScripts({
-  'clean': 'rm -rf dist-dev dist-prod',
+  'clean': 'rm -rf dist-dev dist-prod cdk.out cdk/cdk.out',
   // skip test in build: yarn run test
   'build': 'yarn run clean && yarn install && react-scripts build && yarn run dist:dev && yarn run dist:prod',
   'dist:dev': 'mkdir dist-dev && cp -R build/* dist-dev && cp config-dev.js dist-dev/config.js && cp openapi/openapi-dev.json dist-dev/openapi.json',
   'dist:prod': 'mkdir dist-prod && cp -R build/* dist-prod && cp config-prod.js dist-prod/config.js && cp openapi/openapi-prod.json dist-prod/openapi.json',
-  'cdkdeploy': `yarn run build && cd cdk && yarn install && cdk deploy ${name}-${stage} --profile damadden88 --require-approval never`,
-  'cdksynth': `${prepareCdk} && cdk synth ${name}-${stage} --profile damadden88`,
+  'cdkdeploy': `${prepareCdk} && cdk deploy ${name}-${stage} --profile damadden88 --require-approval never`,
+  'cdksynth': `${prepareCdk} && cdk synth ${name}-${stage} --profile damadden88 && mv cdk.out ../`,
   'cdkdestroy': `${prepareCdk} && yes | cdk destroy ${name}-${stage} --profile damadden88`,
   'cdkpipelinediff': `${prepareCdk} && cdk diff ${name}-pipeline --profile damadden88 || true`,
   'cdkpipelinedeploy': `${prepareCdk} && cdk deploy ${name}-pipeline --profile damadden88 --require-approval never`,

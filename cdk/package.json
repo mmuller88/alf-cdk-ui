@@ -43,7 +43,7 @@
     "eslint-plugin-import": "^2.22.1",
     "jest": "^26.4.2",
     "json-schema": "^0.2.5",
-    "projen": "^0.3.138",
+    "projen": "^0.3.129",
     "standard-version": "^9.0.0",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
@@ -140,7 +140,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsconfig": "tsconfig.jest.json"
+        "tsConfig": "tsconfig.jest.json"
       }
     }
   }
